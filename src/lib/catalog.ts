@@ -2,7 +2,7 @@ import { db } from './db';
 
 export const starterArtists=[
   {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:null,coverUrl:null,specialties:['Locs','Esthetics']},
-  {id:'christina',slug:'christina',displayName:'Christina',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:null,coverUrl:null,specialties:['Braids','Natural Hair']}
+  {id:'christina',slug:'christina',displayName:'Cee',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:null,coverUrl:null,specialties:['Braids','Natural Hair']}
 ];
 
 export const starterCategories=[
@@ -22,6 +22,11 @@ export const starterServices=[
   {slug:'adult-natural-hair-braids',name:'Adult Natural Hair Braids',category:'braids',priceType:'VARIES',priceMin:null,priceMax:null,shortDescription:null},
   {slug:'trim',name:'Trim',category:'natural-hair',priceType:'VARIES',priceMin:null,priceMax:null,shortDescription:null}
 ];
+
+function publicArtist<T extends {slug:string;displayName:string}>(artist:T):T{
+  if(artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina')return {...artist,displayName:'Cee'};
+  return artist;
+}
 
 function starterServiceRows(){
   return starterServices.map(s=>({
@@ -44,7 +49,7 @@ function starterServiceRows(){
 export async function getArtists(){
   try{
     const rows=await db.artist.findMany({where:{active:true},orderBy:{displayOrder:'asc'}});
-    if(rows.length)return rows;
+    if(rows.length)return rows.map(publicArtist);
     const total=await db.artist.count();
     return total===0?starterArtists:rows;
   }catch{
@@ -66,7 +71,7 @@ export async function getCategories(){
 export async function getServices(){
   try{
     const rows=await db.service.findMany({where:{active:true},include:{category:true,artists:{include:{artist:true}}},orderBy:{displayOrder:'asc'}});
-    if(rows.length)return rows;
+    if(rows.length)return rows.map(service=>({...service,artists:service.artists.map(link=>({...link,artist:publicArtist(link.artist)}))}));
     const total=await db.service.count();
     return total===0?starterServiceRows():rows;
   }catch{
