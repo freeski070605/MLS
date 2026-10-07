@@ -17,7 +17,7 @@ export default async function AdminSection({params,searchParams}:{params:Promise
     case 'social':[records,total]=await Promise.all([db.socialPost.findMany({orderBy:{displayOrder:'asc'},skip,take}),db.socialPost.count()]);break;
     case 'testimonials':[records,total,extra.artists,extra.services]=await Promise.all([db.testimonial.findMany({orderBy:{createdAt:'desc'},skip,take}),db.testimonial.count(),db.artist.findMany({select:{id:true,displayName:true}}),db.service.findMany({select:{id:true,name:true}})]);break;
     case 'content':[records,total]=await Promise.all([db.contentBlock.findMany({orderBy:{key:'asc'},skip,take}),db.contentBlock.count()]);break;
-    case 'policies':[records,total]=await Promise.all([db.policy.findMany({orderBy:{displayOrder:'asc'},skip,take}),db.policy.count()]);break;
+    case 'policies':[records,total]=await Promise.all([db.policy.findMany({include:{versions:{orderBy:{version:'desc'},take:1}},orderBy:{displayOrder:'asc'},skip,take}),db.policy.count()]);break;
     case 'faqs':[records,total]=await Promise.all([db.fAQ.findMany({orderBy:{displayOrder:'asc'},skip,take}),db.fAQ.count()]);break;
     case 'inquiries':[records,total]=await Promise.all([db.inquiry.findMany({orderBy:{createdAt:'desc'},skip,take}),db.inquiry.count()]);break;
     case 'notifications':[records,total]=await Promise.all([db.notificationTemplate.findMany({skip,take}),db.notificationTemplate.count()]);extra.emailConfigured=!!process.env.RESEND_API_KEY&&!!process.env.EMAIL_FROM;break;
