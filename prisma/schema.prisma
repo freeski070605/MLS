@@ -1,0 +1,490 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mongodb"
+  url          = env("MONGODB_URI")
+  relationMode = "prisma"
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  ARTIST
+  CLIENT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  NOT_REQUIRED
+  PENDING
+  DEPOSIT_PAID
+  PAID
+  PARTIALLY_PAID
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PriceType {
+  FIXED
+  STARTING
+  RANGE
+  VARIES
+  CONSULTATION
+}
+
+enum DepositType {
+  NONE
+  FLAT
+  PERCENT
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+  email                 String    @unique
+  passwordHash          String?
+  role                  UserRole  @default(CLIENT)
+  verifiedAt            DateTime?
+  resetTokenHash        String?
+  resetExpiresAt        DateTime?
+  verificationTokenHash String?
+  verificationExpiresAt DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  clients               Client[]
+  artists               Artist[]
+  sessions              Session[]
+}
+
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Client {
+  id                      String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId                  String?       @db.ObjectId
+  user                    User?         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  name                    String
+  email                   String        @unique
+  phone                   String?
+  notes                   String?
+  tags                    String[]      @default([])
+  communicationPreference String        @default("email")
+  createdAt               DateTime      @default(now())
+  appointments            Appointment[]
+
+  @@index([userId])
+}
+
+model Artist {
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
+  slug           String          @unique
+  name           String
+  displayName    String
+  roleLabels     String[]
+  bio            String?
+  specialties    String[]        @default([])
+  photoUrl       String?
+  coverUrl       String?
+  instagramUrl   String?
+  tiktokUrl      String?
+  active         Boolean         @default(true)
+  bookingEnabled Boolean         @default(true)
+  displayOrder   Int             @default(0)
+  seoTitle       String?
+  seoDescription String?
+  userId         String?         @db.ObjectId
+  user           User?           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  services       ServiceArtist[]
+  availability   Availability[]
+  blockedTimes   BlockedTime[]
+  appointments   Appointment[]
+  gallery        GalleryItem[]
+  testimonials   Testimonial[]
+
+  @@index([active, displayOrder])
+  @@index([userId])
+}
+
+model Category {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  slug           String        @unique
+  name           String
+  description    String?
+  parentId       String?       @db.ObjectId
+  parent         Category?     @relation("CategoryTree", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children       Category[]    @relation("CategoryTree")
+  displayOrder   Int           @default(0)
+  active         Boolean       @default(true)
+  imageUrl       String?
+  seoTitle       String?
+  seoDescription String?
+  services       Service[]
+  gallery        GalleryItem[]
+}
+
+model Service {
+  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  slug              String          @unique
+  name              String
+  categoryId        String          @db.ObjectId
+  category          Category        @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  shortDescription  String?
+  description       String?
+  priceType         PriceType       @default(VARIES)
+  priceMin          Int?
+  priceMax          Int?
+  durationMinutes   Int?
+  bufferBefore      Int             @default(0)
+  bufferAfter       Int             @default(0)
+  depositType       DepositType     @default(NONE)
+  depositValue      Int?
+  active            Boolean         @default(true)
+  featured          Boolean         @default(false)
+  bookingEnabled    Boolean         @default(false)
+  imageUrl          String?
+  preparation       String?
+  aftercare         String?
+  cancellationRules String?
+  displayOrder      Int             @default(0)
+  tags              String[]        @default([])
+  seoTitle          String?
+  seoDescription    String?
+  artists           ServiceArtist[]
+  options           ServiceOption[]
+  appointments      Appointment[]
+  gallery           GalleryItem[]
+  testimonials      Testimonial[]
+
+  @@index([active, categoryId, displayOrder])
+}
+
+model ServiceArtist {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId String  @db.ObjectId
+  artistId  String  @db.ObjectId
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  artist    Artist  @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([serviceId, artistId])
+}
+
+model ServiceOption {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  serviceId     String  @db.ObjectId
+  service       Service @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  name          String
+  description   String?
+  priceDelta    Int     @default(0)
+  durationDelta Int     @default(0)
+  required      Boolean @default(false)
+  active        Boolean @default(true)
+  displayOrder  Int     @default(0)
+}
+
+model Availability {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  artistId      String    @db.ObjectId
+  artist        Artist    @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  weekday       Int
+  date          String?
+  startMinute   Int
+  endMinute     Int
+  effectiveFrom DateTime?
+  effectiveTo   DateTime?
+
+  @@index([artistId, weekday])
+  @@index([artistId, date])
+}
+
+model BlockedTime {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  artistId String   @db.ObjectId
+  artist   Artist   @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  startAt  DateTime
+  endAt    DateTime
+  reason   String?
+
+  @@index([artistId, startAt, endAt])
+}
+
+model Appointment {
+  id                 String               @id @default(auto()) @map("_id") @db.ObjectId
+  reference          String               @unique
+  clientId           String               @db.ObjectId
+  client             Client               @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  artistId           String               @db.ObjectId
+  artist             Artist               @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  serviceId          String               @db.ObjectId
+  service            Service              @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  startAt            DateTime
+  endAt              DateTime
+  reservedStartAt    DateTime
+  reservedEndAt      DateTime
+  status             BookingStatus        @default(PENDING)
+  paymentStatus      PaymentStatus        @default(NOT_REQUIRED)
+  priceEstimate      Int?
+  depositDue         Int                  @default(0)
+  balanceEstimate    Int?
+  optionSnapshot     Json?
+  notes              String?
+  internalNotes      String?
+  source             String               @default("website")
+  policyVersionId    String?              @db.ObjectId
+  policyVersion      PolicyVersion?       @relation(fields: [policyVersionId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  acceptedAt         DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  cancelledAt        DateTime?
+  cancellationReason String?
+  history            AppointmentHistory[]
+  payments           Payment[]
+  notifications      NotificationLog[]
+
+  @@index([artistId, startAt, endAt])
+  @@index([artistId, reservedStartAt, reservedEndAt])
+  @@index([clientId, startAt])
+  @@index([status, startAt])
+}
+
+model AppointmentHistory {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentId String      @db.ObjectId
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  action        String
+  details       Json?
+  actorId       String?
+  createdAt     DateTime    @default(now())
+}
+
+model Payment {
+  id                String      @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentId     String      @db.ObjectId
+  appointment       Appointment @relation(fields: [appointmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  provider          String
+  providerReference String
+  amount            Int
+  currency          String      @default("usd")
+  status            String
+  createdAt         DateTime    @default(now())
+
+  @@unique([provider, providerReference])
+}
+
+model Media {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String   @unique
+  mimeType  String
+  size      Int
+  width     Int?
+  height    Int?
+  altText   String
+  caption   String?
+  createdAt DateTime @default(now())
+}
+
+model GalleryItem {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl     String?
+  beforeUrl    String?
+  afterUrl     String?
+  images       String[]  @default([])
+  caption      String?
+  altText      String
+  categoryId   String?   @db.ObjectId
+  category     Category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  artistId     String?   @db.ObjectId
+  artist       Artist?   @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  serviceId    String?   @db.ObjectId
+  service      Service?  @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  featured     Boolean   @default(false)
+  published    Boolean   @default(false)
+  displayOrder Int       @default(0)
+  tags         String[]  @default([])
+  createdAt    DateTime  @default(now())
+
+  @@index([published, displayOrder])
+}
+
+model Testimonial {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  displayName     String
+  rating          Int
+  text            String
+  serviceId       String?       @db.ObjectId
+  service         Service?      @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  artistId        String?       @db.ObjectId
+  artist          Artist?       @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  featured        Boolean       @default(false)
+  status          PublishStatus @default(DRAFT)
+  testimonialDate DateTime?
+  createdAt       DateTime      @default(now())
+}
+
+model FAQ {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  category     String
+  question     String
+  answer       String
+  status       PublishStatus @default(DRAFT)
+  displayOrder Int           @default(0)
+
+  @@index([status, category])
+}
+
+model Policy {
+  id           String          @id @default(auto()) @map("_id") @db.ObjectId
+  slug         String          @unique
+  title        String
+  body         String
+  status       PublishStatus   @default(DRAFT)
+  displayOrder Int             @default(0)
+  versions     PolicyVersion[]
+}
+
+model PolicyVersion {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  policyId     String        @db.ObjectId
+  policy       Policy        @relation(fields: [policyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  version      Int
+  body         String
+  publishedAt  DateTime      @default(now())
+  appointments Appointment[]
+
+  @@unique([policyId, version])
+}
+
+model PolicyAcceptance {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  clientId        String?  @db.ObjectId
+  appointmentId   String?  @db.ObjectId
+  policyVersionId String   @db.ObjectId
+  acceptedAt      DateTime @default(now())
+  ipHash          String?
+
+  @@index([appointmentId])
+}
+
+model ContentBlock {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  key       String        @unique
+  title     String?
+  body      String?
+  imageUrl  String?
+  ctaLabel  String?
+  ctaUrl    String?
+  status    PublishStatus @default(DRAFT)
+  updatedAt DateTime      @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+
+  @@index([status, createdAt])
+}
+
+model NotificationTemplate {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  event   String
+  channel String
+  subject String?
+  body    String
+  active  Boolean @default(false)
+
+  @@unique([event, channel])
+}
+
+model NotificationLog {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  event             String
+  channel           String
+  recipient         String
+  status            String
+  providerReference String?
+  appointmentId     String?      @db.ObjectId
+  appointment       Appointment? @relation(fields: [appointmentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  details           Json?
+  createdAt         DateTime     @default(now())
+
+  @@index([event, createdAt])
+}
+
+model AnalyticsEvent {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  path        String?
+  entityId    String?
+  source      String?
+  sessionHash String?
+  createdAt   DateTime @default(now())
+
+  @@index([name, createdAt])
+}
+
+model SiteSetting {
+  key       String   @id @map("_id")
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String?
+  before    Json?
+  after     Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, createdAt])
+}
+
+model SocialPost {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  platform       String
+  mediaUrl       String
+  destinationUrl String
+  altText        String
+  caption        String?
+  featured       Boolean  @default(false)
+  published      Boolean  @default(false)
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  @@index([published, featured, displayOrder])
+}
+
+model BookingSlotLock {
+  id            String @id @map("_id")
+  appointmentId String
+
+  @@index([appointmentId])
+}

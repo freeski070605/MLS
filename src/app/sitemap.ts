@@ -1,0 +1,4 @@
+import type { MetadataRoute } from 'next';
+import { siteUrl } from '@/lib/site';
+import { getArtists,getCategories,getServices } from '@/lib/catalog';
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{const staticPaths=['','services','artists','gallery','about','policies','contact','faq','appointment-prep','privacy','terms','accessibility'];const [services,artists,categories]=await Promise.all([getServices(),getArtists(),getCategories()]);return [...staticPaths.map(path=>({url:`${siteUrl}/${path}`,changeFrequency:'weekly' as const})),...services.map(s=>({url:`${siteUrl}/services/${s.slug}`,changeFrequency:'weekly' as const})),...artists.map(a=>({url:`${siteUrl}/artists/${a.slug}`,changeFrequency:'monthly' as const})),...categories.map(c=>({url:`${siteUrl}/services/${c.slug}`,changeFrequency:'weekly' as const}))]}

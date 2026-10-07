@@ -1,0 +1,2 @@
+export const metadata={title:'Accessibility'};
+export default function Accessibility(){return <section className="section"><div className="container prose"><p className="eyebrow">Everyone is welcome</p><h1>Accessibility.</h1><p>MahLovely Studio aims to make this website usable for everyone. If you have trouble using the site or need assistance booking, please <a className="text-link" href="/contact">contact us</a>.</p></div></section>}
