@@ -1,13 +1,13 @@
 import { db } from './db';
 export const starterArtists=[
-  {id:'ke',slug:'ke',displayName:'Ke',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Ke brings loc artistry and esthetic services together within a personalized beauty experience.',photoUrl:null,coverUrl:null,specialties:['Locs','Esthetics']},
-  {id:'titi',slug:'titi',displayName:'Titi',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:null,coverUrl:null,specialties:['Braids','Natural Hair']}
+  {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:null,coverUrl:null,specialties:['Locs','Esthetics']},
+  {id:'christina',slug:'christina',displayName:'Christina',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:null,coverUrl:null,specialties:['Braids','Natural Hair']}
 ];
 export const starterCategories=[
   {id:'braids',slug:'braids',name:'Braids',description:'Natural-hair and protective braided styles.'},
   {id:'natural-hair',slug:'natural-hair',name:'Natural Hair',description:'Care and styling for your natural texture.'},
-  {id:'locs',slug:'locs',name:'Locs',description:'Loc artistry and care by Ke.'},
-  {id:'esthetics',slug:'esthetics',name:'Esthetics',description:'Intentional esthetic care by Ke.'}
+  {id:'locs',slug:'locs',name:'Locs',description:'Loc artistry and care tailored to you.'},
+  {id:'esthetics',slug:'esthetics',name:'Esthetics',description:'Intentional esthetic care tailored to you.'}
 ];
 export const starterServices=[
   {slug:'all-braiding-styles',name:'All Braiding Styles',category:'braids',priceType:'STARTING',priceMin:10000,priceMax:null,shortDescription:'Natural-hair and protective braided styles. Final pricing varies depending on desired style, length, braid size, and hair density.'},
