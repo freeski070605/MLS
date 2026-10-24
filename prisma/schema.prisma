@@ -52,6 +52,11 @@ enum PublishStatus {
   PUBLISHED
 }
 
+enum GalleryMediaType {
+  IMAGE
+  VIDEO
+}
+
 model User {
   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
   email                 String    @unique
@@ -305,7 +310,12 @@ model Media {
 
 model GalleryItem {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  mediaType    GalleryMediaType @default(IMAGE)
   imageUrl     String?
+  videoUrl     String?
+  posterUrl    String?
+  width        Int?
+  height       Int?
   beforeUrl    String?
   afterUrl     String?
   images       String[]  @default([])

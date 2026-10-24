@@ -1,6 +1,7 @@
 import { PrismaClient, PriceType } from '@prisma/client';
 import { hash } from 'bcryptjs';
 import { artistRenamePatch,legacyArtistProfiles,type LegacyArtistProfile } from './artist-names';
+import { ARTIST_MEDIA_SEED_TAG,artistHeadshots,ceePortfolioPhotos,ceePortfolioVideos } from './artist-media';
 const db=new PrismaClient();
 async function ensureArtist(profile:LegacyArtistProfile){
   const [legacy,current]=await Promise.all([db.artist.findUnique({where:{slug:profile.legacySlug}}),db.artist.findUnique({where:{slug:profile.slug}})]);
@@ -28,6 +29,13 @@ async function main(){
   }
   const shante=await ensureArtist(legacyArtistProfiles[0]);
   const christina=await ensureArtist(legacyArtistProfiles[1]);
+  const seededMedia=await db.galleryItem.findFirst({where:{tags:{has:ARTIST_MEDIA_SEED_TAG}},select:{id:true}});
+  if(!seededMedia){
+    for(const headshot of artistHeadshots){
+      const artist=headshot.artistSlug==='shante'?shante:christina;
+      await db.artist.update({where:{id:artist.id},data:{photoUrl:headshot.imageUrl}});
+    }
+  }
   const serviceData:{slug:string;name:string;category:string;priceType:PriceType;priceMin?:number;priceMax?:number;description?:string;order:number}[]=[
     {slug:'all-braiding-styles',name:'All Braiding Styles',category:'braids',priceType:'STARTING',priceMin:10000,description:'Natural-hair and protective braided styles. Final pricing varies depending on desired style, length, braid size, and hair density.',order:1},
     {slug:'silk-press',name:'Silk Press',category:'natural-hair',priceType:'FIXED',priceMin:6500,order:2},
@@ -39,6 +47,43 @@ async function main(){
     {slug:'trim',name:'Trim',category:'natural-hair',priceType:'VARIES',order:8}
   ];
   for(const s of serviceData){ const category=await db.category.findUniqueOrThrow({where:{slug:s.category}}); await db.service.upsert({where:{slug:s.slug},create:{slug:s.slug,name:s.name,categoryId:category.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order,featured:s.order<5,bookingEnabled:false,artists:{create:{artistId:christina.id}}},update:{}}); }
+  const braids=await db.category.findUniqueOrThrow({where:{slug:'braids'}});
+  const seedGalleryItem=async (key:string,data:Parameters<typeof db.galleryItem.create>[0]['data'])=>{
+    const tag=`${ARTIST_MEDIA_SEED_TAG}:${key}`;
+    const existing=await db.galleryItem.findFirst({where:{tags:{has:tag}},select:{id:true}});
+    if(!existing)await db.galleryItem.create({data:{...data,tags:[ARTIST_MEDIA_SEED_TAG,tag]}});
+  };
+  for(const [index,photo] of ceePortfolioPhotos.entries()){
+    await seedGalleryItem(`cee:photo:${photo.filename}`,{
+      mediaType:'IMAGE',
+      imageUrl:`/brand/Titi/${photo.filename}`,
+      width:photo.width,
+      height:photo.height,
+      caption:'Braided style by Cee',
+      altText:'Braided hairstyle portfolio photo by Cee',
+      artistId:christina.id,
+      categoryId:braids.id,
+      published:true,
+      featured:false,
+      displayOrder:index
+    });
+  }
+  for(const [index,filename] of ceePortfolioVideos.entries()){
+    await seedGalleryItem(`cee:video:${filename}`,{
+      mediaType:'VIDEO',
+      videoUrl:`/brand/Titi/${filename}`,
+      posterUrl:`/brand/Titi/posters/${filename.replace(/\.mp4$/i,'.jpg')}`,
+      width:720,
+      height:1280,
+      caption:'Braiding work by Cee',
+      altText:'Braiding work video by Cee',
+      artistId:christina.id,
+      categoryId:braids.id,
+      published:true,
+      featured:false,
+      displayOrder:ceePortfolioPhotos.length+index
+    });
+  }
   const blocks=[
     ['home.hero.eyebrow','MAHLOVELY STUDIO'],['home.hero.title','Your Hair. Your Skin. Your Crown.'],['home.hero.body','Natural Hair · Braids · Locs · Esthetics'],['home.intro.title','Two artists. One lovely experience.'],['home.intro.body','Professional hair care, protective styling, loc artistry, and esthetic care come together under one studio brand.'],['about.intro','MahLovely Studio brings two artists together around healthy hair, beauty, confidence, and intentional self-care. Every visit begins with you.']
   ];
