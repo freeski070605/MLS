@@ -5,7 +5,16 @@ import { notFound } from 'next/navigation';
 import { getArtists,getServices } from '@/lib/catalog';
 import { db } from '@/lib/db';
 import { priceLabel,siteUrl } from '@/lib/site';
+<<<<<<< HEAD
 import GalleryMedia from '@/components/gallery-media';
+=======
+
+// Artist profiles are managed from the admin and must always reflect the latest
+// MongoDB values (especially photoUrl/coverUrl) without waiting for a redeploy.
+export const dynamic='force-dynamic';
+export const revalidate=0;
+
+>>>>>>> 98b9daab01676832b77db788e5b704b60326974a
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const a=(await getArtists()).find(a=>a.slug===slug);return a?{title:a.displayName,description:a.bio||`Meet ${a.displayName} at MahLovely Studio`,alternates:{canonical:`${siteUrl}/artists/${slug}`}}:{title:'Artist not found'}}
 export default async function ArtistDetail({params}:{params:Promise<{slug:string}>}){
   const {slug}=await params;
