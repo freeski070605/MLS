@@ -21,6 +21,7 @@ describe('Shante customer-facing name',()=>{
    const code=readFileSync(file,'utf8')
      // Preserve the original asset folder and internal API identifiers.
      .replaceAll('/brand/Ke/','/brand/legacy-artist/')
+     .replaceAll('/brand/Titi/','/brand/legacy-braider/')
      .replaceAll('ke-consultation','legacy-consultation');
    expect(code.match(/\bKe\b|\bTiti\b|\bChristina\b/g),`Unexpected old artist name in ${file}`).toBeNull();
   }
