@@ -5,3 +5,4 @@ node_modules
 coverage
 *.log
 public/uploads
+public/brand/editorial/

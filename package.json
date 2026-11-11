@@ -13,7 +13,9 @@
     "db:push": "prisma db push",
     "db:setup": "prisma db push && tsx prisma/seed.ts",
     "db:release": "prisma db push && tsx prisma/seed.ts",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "prebuild": "node scripts/prepare-brand-media.mjs",
+    "predev": "node scripts/prepare-brand-media.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1147.0",

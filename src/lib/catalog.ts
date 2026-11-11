@@ -25,9 +25,9 @@ export const starterServices=[
 ];
 
 function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null}>(artist:T):T{
-  if(artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina')return {...artist,displayName:'Cee'};
-  if(!artist.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===artist.slug);if(headshot)return {...artist,photoUrl:headshot.imageUrl};}
-  return artist;
+  const named=artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina'?{...artist,displayName:'Cee'}:artist;
+  if(!named.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===named.slug);if(headshot)return {...named,photoUrl:headshot.imageUrl};}
+  return named;
 }
 
 function starterServiceRows(){

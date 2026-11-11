@@ -1,5 +1,7 @@
 import { PrismaClient, PriceType } from '@prisma/client';
 import { hash } from 'bcryptjs';
+import { mahSections } from '../src/lib/mah-esti';
+import { shanteLocPolicyText } from '../src/lib/shante-loc-policies';
 import { artistRenamePatch,legacyArtistProfiles,type LegacyArtistProfile } from './artist-names';
 import { ARTIST_MEDIA_SEED_TAG,artistHeadshots,ceePortfolioPhotos,ceePortfolioVideos } from './artist-media';
 const db=new PrismaClient();
@@ -107,6 +109,34 @@ async function main(){
     await db.service.upsert({where:{slug:s.slug},create:{slug:s.slug,name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order,featured:['retwist-short','starter-locs','loc-styles','full-head-color-no-bleach'].includes(s.slug),bookingEnabled:false,artists:{create:{artistId:shante.id}}},update:{name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order}});
   }
 
+
+  // MAH ESTI services: idempotent seed. Preserve all existing admin edits.
+  const estheticsCategory=await db.category.findUniqueOrThrow({where:{slug:'esthetics'}});
+  for(const section of mahSections){
+    for(const [index,item] of section.items.entries()){
+      const stored=await db.service.upsert({
+        where:{slug:item.slug},
+        create:{
+          slug:item.slug,name:item.name,categoryId:estheticsCategory.id,
+          priceType:'FIXED',priceMin:item.price*100,
+          shortDescription:item.description,
+          description:[item.description,...(item.details||[])].join('\n'),
+          displayOrder:50+mahSections.findIndex(group=>group.id===section.id)*20+index,
+          tags:['MAH ESTI',section.id],featured:!!item.featured,
+          bookingEnabled:false,
+          artists:{create:{artistId:shante.id}}
+        },
+        update:{}
+      });
+      // If this is a pre-existing service, only add the missing Shante link.
+      await db.serviceArtist.upsert({
+        where:{serviceId_artistId:{serviceId:stored.id,artistId:shante.id}},
+        create:{serviceId:stored.id,artistId:shante.id},update:{}
+      });
+
+    }
+  }
+
   const blocks=[
     ['home.hero.eyebrow','MAHLOVELY STUDIO'],['home.hero.title','Your Hair. Your Skin. Your Crown.'],['home.hero.body','Natural Hair · Braids · Locs · Esthetics'],['home.intro.title','Two artists. One lovely experience.'],['home.intro.body','Professional hair care, protective styling, loc artistry, and esthetic care come together under one studio brand.'],['about.intro','MahLovely Studio brings two artists together around healthy hair, beauty, confidence, and intentional self-care. Every visit begins with you.']
   ];
@@ -123,6 +153,8 @@ async function main(){
   ];
   const policyNames=['Deposits','Cancellations','Rescheduling','Late Arrivals','No-Shows','Guests','Hair Preparation','Children','Refunds','Esthetics','Health & Safety','Appointment Expectations'];
   for(let i=0;i<policyNames.length;i++){const title=policyNames[i];const slug=title.toLowerCase().replace(/[^a-z0-9]+/g,'-');const supplied=policyData.find(p=>p.slug===slug);await db.policy.upsert({where:{slug},create:{slug,title,body:supplied?.body??'',status:supplied?'PUBLISHED':'DRAFT',displayOrder:i},update:supplied?{body:supplied.body,status:'PUBLISHED'}:{}});}
+  // Keep the full flyer wording in the admin policy library without overwriting later edits.
+  await db.policy.upsert({where:{slug:'shante-loc-booking'},create:{slug:'shante-loc-booking',title:'Shante Loc Booking & Policies',body:shanteLocPolicyText,status:'PUBLISHED',displayOrder:13},update:{}});
   const templates=[
     ['email_verification','Verify your MahLovely account','<p>Use this link to verify your email: <a href="{{link}}">Verify email</a></p>'],
     ['password_reset','Reset your MahLovely password','<p>Use this link to reset your password: <a href="{{link}}">Reset password</a></p>'],
