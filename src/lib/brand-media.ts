@@ -13,17 +13,17 @@ const photo=(folder:'Ke'|'Titi',filename:string,alt:string,caption:string,positi
 
 export const brandCollections:Record<'shante'|'christina',BrandCollection>={
   shante:{
-    name:'Shante',discipline:'Loc artistry & esthetics',
-    intro:'Intentional care, thoughtful technique, and a look that feels like you.',
+    name:'Shante',discipline:'MAH ESTI · skin & body care',
+    intro:'A closer look at MAH ESTI: skin and body care by Shante. Loc portfolio photography is coming soon.',
     photos:[
-      photo('Ke','Dolphin_Radar_20261111082823.png','Work from Shante’s portfolio','The artistry'),
-      photo('Ke','Dolphin_Radar_20261111082827.png','Portfolio detail from Shante','The details'),
-      photo('Ke','Dolphin_Radar_20261111082842.png','Finished work from Shante','The finish')
+      photo('Ke','Dolphin_Radar_20261111082823.png','MAH ESTI skincare portfolio by Shante','Skin rituals'),
+      photo('Ke','Dolphin_Radar_20261111082827.png','MAH ESTI esthetics detail by Shante','The details'),
+      photo('Ke','Dolphin_Radar_20261111082842.png','MAH ESTI skin and body care portfolio','The glow')
     ],
     films:[
-      {src:`${keRoot}/Dolphin_Radar_20261111082815.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082823.png'),title:'From Shante’s chair / 01'},
-      {src:`${keRoot}/Dolphin_Radar_20261111082840.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082827.png'),title:'From Shante’s chair / 02'},
-      {src:`${keRoot}/Dolphin_Radar_20261111082844.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082842.png'),title:'From Shante’s chair / 03'}
+      {src:`${keRoot}/Dolphin_Radar_20261111082815.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082823.png'),title:'MAH ESTI / 01'},
+      {src:`${keRoot}/Dolphin_Radar_20261111082840.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082827.png'),title:'MAH ESTI / 02'},
+      {src:`${keRoot}/Dolphin_Radar_20261111082844.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082842.png'),title:'MAH ESTI / 03'}
     ]
   },
   christina:{
