@@ -6,8 +6,8 @@ const optimized=(folder:'Ke'|'Titi',name:string)=>`/brand/editorial/${folder.toL
 const photo=(folder:'Ke'|'Titi',filename:string,alt:string,caption:string,position='center'):BrandPhoto=>({src:optimized(folder,filename),original:`/brand/${folder}/${filename}`,alt,caption,position});
 const film=(folder:'Ke'|'Titi',filename:string,title:string,poster:string,edit?:string):BrandFilm=>({src:edit?`/brand/editorial/${edit}.mp4`:`/brand/${folder}/${filename}`,original:`/brand/${folder}/${filename}`,poster,title});
 
-export const ceeHeroPhoto:BrandPhoto={src:'/brand/editorial/cee-hero.webp',original:'/brand/Titi/11116604-C8BC-46E4-A638-46E23C1E9138.mp4',alt:'Finished cornrow braid pattern by Cee against a clean background',caption:'The braid edit',position:'center 42%'};
-export const ceeBookingPhoto:BrandPhoto={src:'/brand/editorial/cee-booking.webp',original:'/brand/Titi/7EACAEFE-4995-4049-8792-1FAF4518A447.mp4',alt:'Finished braided bun with purple beads by Cee',caption:'A finished look',position:'center 43%'};
+export const ceeHeroPhoto:BrandPhoto=photo('Titi','IMG_1720.png','Braided hairstyle from Cee’s portfolio','The braid edit','center 38%');
+export const ceeBookingPhoto:BrandPhoto=photo('Titi','IMG_6519.png','Finished braid pattern with purple beads by Cee','A finished look','center 35%');
 
 export const locCollection:BrandCollection={
   name:'Shante',discipline:'GET TWISTED · loc artistry',intro:'Retwists, precise parts, finished styles and the care behind every loc look.',
@@ -15,15 +15,11 @@ export const locCollection:BrandCollection={
     photo('Ke','IMG_9173.JPG','Finished loc updo with precise parting by Shante','The finished updo','center 36%'),
     photo('Ke','IMG_0455.JPG','Copper loc updo styled by Shante','A warm finish','center 40%'),
     photo('Ke','IMG_0104.JPG','Neat loc style photographed from above','Clean parts','center 44%'),
-    photo('Ke','IMG_1710.HEIC','Long retwisted locs with visible parting','The retwist','center 50%'),
-    photo('Ke','IMG_2256_Original.HEIC','Close view of Shante’s loc parting technique','Technique, up close'),
-    photo('Ke','IMG_2747.HEIC','Finished short loc style from above','The detail'),
     photo('Ke','IMG_2724.JPG','Back view of a styled copper loc updo','The shape'),
-    photo('Ke','IMG_2743.HEIC','Short loc style with geometric parting','Another perspective')
   ],
   films:[
-    film('Ke','IMG_1755.mp4','Loc style reveal by Shante','/brand/editorial/ke-IMG_1755-poster.webp','ke-loc-reveal'),
-    film('Ke','recorded-31849307613849.mp4','Finished loc look by Shante','/brand/editorial/ke-recorded-poster.webp')
+    film('Ke','IMG_1755.mp4','Loc style reveal by Shante',optimized('Ke','IMG_9173.JPG')),
+    film('Ke','recorded-31849307613849.mp4','Finished loc look by Shante',optimized('Ke','IMG_0455.JPG'))
   ]
 };
 
@@ -36,8 +32,8 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
       photo('Ke','Dolphin_Radar_20261111082842.png','MAH ESTI body treatment setup','The care')
     ],
     films:[
-      film('Ke','Dolphin_Radar_20261111082815.mp4','MAH ESTI facial ritual','/brand/editorial/ke-esti-poster.webp'),
-      film('Ke','Dolphin_Radar_20261111082840.mp4','MAH ESTI facial treatment','/brand/editorial/ke-esti-treatment-poster.webp')
+      film('Ke','Dolphin_Radar_20261111082815.mp4','MAH ESTI facial ritual',optimized('Ke','Dolphin_Radar_20261111082823.png')),
+      film('Ke','Dolphin_Radar_20261111082840.mp4','MAH ESTI facial treatment',optimized('Ke','Dolphin_Radar_20261111082827.png'))
     ]
   },
   christina:{
@@ -50,8 +46,8 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
       photo('Titi','IMG_6519.png','Radial braid pattern with purple beads by Cee','A playful finish','center 35%')
     ],
     films:[
-      film('Titi','11116604-C8BC-46E4-A638-46E23C1E9138.mp4','Precision cornrows by Cee','/brand/editorial/cee-hero.webp','cee-cornrows'),
-      film('Titi','7EACAEFE-4995-4049-8792-1FAF4518A447.mp4','Braided bun and bead detail by Cee','/brand/editorial/cee-booking.webp','cee-beaded-bun'),
+      film('Titi','11116604-C8BC-46E4-A638-46E23C1E9138.mp4','Precision cornrows by Cee',optimized('Titi','IMG_1720.png')),
+      film('Titi','7EACAEFE-4995-4049-8792-1FAF4518A447.mp4','Braided bun and bead detail by Cee',optimized('Titi','IMG_6519.png')),
       film('Titi','BC3ED02A-588C-4C69-8718-9950689904D5.mp4','Radial braid pattern by Cee','/brand/Titi/posters/BC3ED02A-588C-4C69-8718-9950689904D5.jpg')
     ]
   }
