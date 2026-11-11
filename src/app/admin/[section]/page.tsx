@@ -5,6 +5,7 @@ import { zone as businessTimeZone } from '@/lib/booking';
 import Manager from './manager';
 import MahEstiSyncButton from './mah-esti-sync-button';
 import {staffArtistId,allowedStaffSection} from '@/lib/staff-scope';
+import {inquiryWhereForStaff} from '@/lib/inquiry-scope';
 const sections=['calendar','appointments','services','options','categories','artists','team','clients','gallery','social','testimonials','content','policies','faqs','inquiries','notifications','analytics','settings','media'];
 export default async function AdminSection({params,searchParams}:{params:Promise<{section:string}>;searchParams:Promise<{q?:string;page?:string;view?:string}>}){const {section}=await params;const q=await searchParams;if(!sections.includes(section))notFound();const user=await requireUser(['OWNER','ADMIN','ARTIST']);if(!allowedStaffSection(user,section))notFound();const page=Math.max(1,Number(q.page)||1),take=20,skip=(page-1)*take;let records:unknown[]=[];let total=0;const extra:Record<string,unknown>={};const own=staffArtistId(user)||undefined;
   switch(section){
@@ -21,7 +22,7 @@ export default async function AdminSection({params,searchParams}:{params:Promise
     case 'content':[records,total]=await Promise.all([db.contentBlock.findMany({orderBy:{key:'asc'},skip,take}),db.contentBlock.count()]);break;
     case 'policies':[records,total]=await Promise.all([db.policy.findMany({include:{versions:{orderBy:{version:'desc'},take:1}},orderBy:{displayOrder:'asc'},skip,take}),db.policy.count()]);break;
     case 'faqs':[records,total]=await Promise.all([db.fAQ.findMany({orderBy:{displayOrder:'asc'},skip,take}),db.fAQ.count()]);break;
-    case 'inquiries':{const where=own?{artistId:own}:{};[records,total]=await Promise.all([db.inquiry.findMany({where,orderBy:{createdAt:'desc'},skip,take}),db.inquiry.count({where})]);break}
+    case 'inquiries':{const where=inquiryWhereForStaff(user);[records,total]=await Promise.all([db.inquiry.findMany({where,orderBy:{createdAt:'desc'},skip,take}),db.inquiry.count({where})]);break}
     case 'notifications':[records,total]=await Promise.all([db.notificationTemplate.findMany({skip,take}),db.notificationTemplate.count()]);extra.emailConfigured=!!process.env.RESEND_API_KEY&&!!process.env.EMAIL_FROM;break;
     case 'settings':[records,total]=await Promise.all([db.siteSetting.findMany({skip,take}),db.siteSetting.count()]);break;
     case 'media':[records,total]=await Promise.all([db.media.findMany({orderBy:{createdAt:'desc'},skip,take}),db.media.count()]);break;
