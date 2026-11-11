@@ -1,6 +1,6 @@
 import { PrismaClient, PriceType } from '@prisma/client';
 import { hash } from 'bcryptjs';
-import { mahSections, mahAddons } from '../src/lib/mah-esti';
+import { mahSections } from '../src/lib/mah-esti';
 import { artistRenamePatch,legacyArtistProfiles,type LegacyArtistProfile } from './artist-names';
 import { ARTIST_MEDIA_SEED_TAG,artistHeadshots,ceePortfolioPhotos,ceePortfolioVideos } from './artist-media';
 const db=new PrismaClient();
@@ -132,12 +132,7 @@ async function main(){
         where:{serviceId_artistId:{serviceId:stored.id,artistId:shante.id}},
         create:{serviceId:stored.id,artistId:shante.id},update:{}
       });
-      if(section.id==='facials'||section.id==='body'){
-        for(const [position,[name,price]] of mahAddons.entries()){
-          const exists=await db.serviceOption.findFirst({where:{serviceId:stored.id,name}});
-          if(!exists)await db.serviceOption.create({data:{serviceId:stored.id,name,priceDelta:price*100,displayOrder:position,required:false,active:true}});
-        }
-      }
+
     }
   }
 
