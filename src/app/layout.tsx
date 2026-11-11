@@ -5,6 +5,7 @@ import './globals.css';
 import { brand, setting, siteUrl } from '@/lib/site';
 import { getArtists, getCategories } from '@/lib/catalog';
 import AnalyticsClient from './analytics-client';
+import {publicStudioCopy} from '@/lib/public-names';
 
 export const metadata:Metadata={metadataBase:new URL(siteUrl),title:{default:'MahLovely Studio | Hair, Locs & Esthetics',template:'%s | MahLovely Studio'},description:brand.description,openGraph:{title:'MahLovely Studio',description:brand.tagline,type:'website',images:['/images/editorial-hero.png']},icons:{icon:'/brand/mahlovely-logo.png',apple:'/brand/mahlovely-logo.png'},robots:{index:true,follow:true}};
 export default async function RootLayout({children}:{children:React.ReactNode}){
@@ -21,14 +22,14 @@ export default async function RootLayout({children}:{children:React.ReactNode}){
               <span className="wordmark"><span>MAHLOVELY</span><small>STUDIO</small></span>
             </Link>
             <nav className="desktop-nav" aria-label="Main navigation">
-              {mainNav.filter(item => item.href.startsWith('/')).map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+              {mainNav.filter(item => item.href.startsWith('/')).map(item => <Link key={item.href} href={item.href}>{publicStudioCopy(item.label)}</Link>)}
               {!mainNav.some(item=>item.href==='/mah-esti')&&<Link href="/mah-esti">MAH ESTI</Link>}
             </nav>
             <Link className="button button-dark header-book" href="/book">Book now <span aria-hidden="true">↗</span></Link>
             <details className="mobile-menu">
               <summary aria-label="Open menu">Menu <span>☰</span></summary>
               <nav aria-label="Mobile navigation">
-                {mainNav.filter(item => item.href.startsWith('/')).map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+                {mainNav.filter(item => item.href.startsWith('/')).map(item => <Link key={item.href} href={item.href}>{publicStudioCopy(item.label)}</Link>)}
                 <Link href="/faq">FAQ</Link>
                 <Link href="/cee-booking">Book with Cee</Link>
                 <Link href="/book">Book now</Link>
