@@ -5,7 +5,7 @@ import {intakeSections,consentText,type IntakeField} from '@/lib/mah-esti-intake
 
 type Answers=Record<string,string|string[]>;
 const saveText=(value:string)=>value.slice(0,2000);
-function Question({field,value,onChange}:{field:IntakeField;value:string|string[]|undefined;onChange:(v:string|string[])=>void}){
+export function Question({field,value,onChange}:{field:IntakeField;value:string|string[]|undefined;onChange:(v:string|string[])=>void}){
  const id='intake-'+field.key;
  if(field.type==='checks')return <fieldset className="intake-question">
    <legend>{field.label}{field.required?' *':''}</legend>
