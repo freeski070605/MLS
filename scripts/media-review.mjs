@@ -54,7 +54,7 @@ await sheet('shortlist.jpg',[
   ['Ke/IMG_2724.JPG','Ke / copper loc back view'],
   ['Ke/Dolphin_Radar_20261111082823.png','Ke / MAH ESTI facial'],
   ['Ke/Dolphin_Radar_20261111082827.png','Ke / MAH ESTI treatment'],
-  ['Titi/IMG_1718.png','Cee / back view of braids'],
+  ['Titi/IMG_5395.png','Cee / braid style supporting shot'],
   ['Titi/IMG_6519.png','Cee / owner selected homepage'],
   ['Titi/7EACAEFE-4995-4049-8792-1FAF4518A447.mp4 @ 10.3s','Cee / booking frame'],
   ['Titi/BC3ED02A-588C-4C69-8718-9950689904D5.mp4 @ 7.5s','Cee / radial braids in motion']
