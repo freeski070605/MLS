@@ -400,3 +400,15 @@ a:hover .brand-image{transform:scale(1.035)}
  .artist-request-grid{grid-template-columns:1fr}
  .artist-request-grid .field.full{grid-column:auto}
 }
+
+
+.mah-booking-paths{padding:55px 0;background:#e5d9cc}
+.mah-booking-paths-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.mah-booking-path{display:flex;flex-direction:column;align-items:flex-start;background:#302924;color:#fff5e9;padding:40px;min-height:280px;transition:transform .25s ease}
+.mah-booking-path:nth-child(2){background:#6b5143}
+.mah-booking-path:hover{transform:translateY(-4px)}
+.mah-booking-path h2{font-size:clamp(2.3rem,4vw,4.2rem);margin:6px 0 18px}
+.mah-booking-path .eyebrow{color:#ebbc98}
+.mah-booking-path p:not(.eyebrow){max-width:480px;color:#e7d8c8}
+.mah-booking-path .text-link{color:#fff;margin-top:auto}
+@media(max-width:760px){.mah-booking-paths-grid{grid-template-columns:1fr}.mah-booking-path{min-height:250px;padding:30px}}
