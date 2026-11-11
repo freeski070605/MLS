@@ -1,5 +1,6 @@
 import { artistHeadshots } from '../../prisma/artist-media';
 import { db } from './db';
+import { isRejectedBrandMedia } from './brand-media';
 
 export const starterArtists=[
   {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:'/brand/Ke/IMG_0549.PNG',coverUrl:null,specialties:['Locs','Esthetics']},
@@ -24,10 +25,11 @@ export const starterServices=[
   {slug:'trim',name:'Trim',category:'natural-hair',priceType:'VARIES',priceMin:null,priceMax:null,shortDescription:null}
 ];
 
-function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null}>(artist:T):T{
+function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null;coverUrl?:string|null}>(artist:T):T{
   const named=artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina'?{...artist,displayName:'Cee'}:artist;
-  if(!named.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===named.slug);if(headshot)return {...named,photoUrl:headshot.imageUrl};}
-  return named;
+  const clean={...named,photoUrl:isRejectedBrandMedia(named.photoUrl)?null:named.photoUrl,coverUrl:isRejectedBrandMedia(named.coverUrl)?null:named.coverUrl};
+  if(!clean.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===clean.slug);if(headshot)return {...clean,photoUrl:headshot.imageUrl};}
+  return clean;
 }
 
 function starterServiceRows(){
@@ -73,7 +75,7 @@ export async function getCategories(){
 export async function getServices(){
   try{
     const rows=await db.service.findMany({where:{active:true},include:{category:true,artists:{include:{artist:true}}},orderBy:{displayOrder:'asc'}});
-    if(rows.length)return rows.map(service=>({...service,artists:service.artists.map(link=>({...link,artist:publicArtist(link.artist)}))}));
+    if(rows.length)return rows.map(service=>({...service,imageUrl:isRejectedBrandMedia(service.imageUrl)?null:service.imageUrl,artists:service.artists.map(link=>({...link,artist:publicArtist(link.artist)}))}));
     const total=await db.service.count();
     return total===0?starterServiceRows():rows;
   }catch{

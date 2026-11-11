@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GalleryMedia from '@/components/gallery-media';
 import { getArtists,getCategories,getServices } from '@/lib/catalog';
-import { brandCollections,locCollection,allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
+import { brandCollections,locCollection,allOriginalBrandUrls,hasRejectedBrandMedia,isRejectedBrandMedia } from '@/lib/brand-media';
 import { content,priceLabel,setting } from '@/lib/site';
 import { db } from '@/lib/db';
 
@@ -25,7 +25,8 @@ export default async function Home(){
     db.testimonial.findMany({where:{status:'PUBLISHED',featured:true},take:3,orderBy:{createdAt:'desc'}}),
     db.socialPost.findMany({where:{published:true,featured:true},take:4,orderBy:{displayOrder:'asc'}})
   ]);}catch{}
-  const studioUpdates=gallery.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const studioUpdates=gallery.filter(item=>!hasRejectedBrandMedia(item)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  social=social.filter(post=>!isRejectedBrandMedia(post.mediaUrl));
   const cee=brandCollections.christina;
   const shante=brandCollections.shante;
   return <>

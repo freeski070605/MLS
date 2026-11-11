@@ -16,14 +16,14 @@ describe('artist media inventory', () => {
     }
   });
 
-  it('lists every publishable Cee portfolio image and supplied video once', () => {
-    expect(ceePortfolioPhotos).toHaveLength(7);
-    expect(ceePortfolioVideos).toHaveLength(8);
-    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(7);
-    expect(new Set(ceePortfolioVideos).size).toBe(8);
+  it('lists every publishable Cee portfolio image and video once', () => {
+    expect(ceePortfolioPhotos).toHaveLength(6);
+    expect(ceePortfolioVideos).toHaveLength(7);
+    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(6);
+    expect(new Set(ceePortfolioVideos).size).toBe(7);
     const ceeDirectory = path.join(mediaDirectory, 'Titi');
-    const actualPhotos = readdirSync(ceeDirectory).filter((filename) => /\.(png|jpe?g)$/i.test(filename) && filename !== 'IMG_0550.JPG' && filename !== 'IMG_1714.png').sort();
-    const actualVideos = readdirSync(ceeDirectory).filter((filename) => /\.mp4$/i.test(filename)).sort();
+    const actualPhotos = readdirSync(ceeDirectory).filter((filename) => /\.(png|jpe?g)$/i.test(filename) && !['IMG_0550.JPG','IMG_1714.png','IMG_1720.png'].includes(filename)).sort();
+    const actualVideos = readdirSync(ceeDirectory).filter((filename) => /\.mp4$/i.test(filename) && filename !== '11116604-C8BC-46E4-A638-46E23C1E9138.mp4').sort();
     expect(ceePortfolioPhotos.map((photo) => photo.filename).sort()).toEqual(actualPhotos);
     expect([...ceePortfolioVideos].sort()).toEqual(actualVideos);
     for (const filename of ceePortfolioVideos) {
@@ -32,6 +32,6 @@ describe('artist media inventory', () => {
   });
 
   it('keeps both headshots separate from the publishable portfolio', () => {
-    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(17);
+    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(15);
   });
 });

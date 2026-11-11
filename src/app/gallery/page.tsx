@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { db } from '@/lib/db';
 import { getArtists,getCategories } from '@/lib/catalog';
-import { brandCollections,allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
+import { brandCollections,allOriginalBrandUrls,hasRejectedBrandMedia } from '@/lib/brand-media';
 import BrandPortfolio from '@/components/brand-portfolio';
 import GalleryMedia from '@/components/gallery-media';
 
@@ -23,7 +23,7 @@ export default async function Gallery({searchParams}:{searchParams:Promise<{cate
   const showShante=(!q.artist||q.artist==='shante')&&(!q.category||q.category==='esthetics');
   const showLocs=(!q.artist||q.artist==='shante')&&(!q.category||q.category==='locs');
   const showCee=(!q.artist||q.artist==='christina')&&(!q.category||q.category==='braids');
-  const customItems=items.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const customItems=items.filter(item=>!hasRejectedBrandMedia(item)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
   const anyWork=showShante||showCee||showLocs||customItems.length>0;
   return <>
     <section className="brand-gallery-hero">

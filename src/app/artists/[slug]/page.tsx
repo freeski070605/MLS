@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { getArtists,getServices } from '@/lib/catalog';
 import { db } from '@/lib/db';
 import { priceLabel,siteUrl } from '@/lib/site';
-import { allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
+import { allOriginalBrandUrls,hasRejectedBrandMedia } from '@/lib/brand-media';
 import BrandPortfolio from '@/components/brand-portfolio';
 import GalleryMedia from '@/components/gallery-media';
 import ShanteLocPolicies from '@/components/shante-loc-policies';
@@ -28,7 +28,7 @@ export default async function ArtistDetail({params}:{params:Promise<{slug:string
   ]);
   const portraitDimensions=artist.photoUrl==='/brand/Titi/IMG_0550.JPG'?{width:1024,height:1820}:artist.photoUrl==='/brand/Ke/IMG_0549.PNG'?{width:1533,height:1024}:{width:600,height:700};
   const hasBrandPortfolio=slug==='shante'||slug==='christina';
-  const extraPortfolio=portfolio.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const extraPortfolio=portfolio.filter(item=>!hasRejectedBrandMedia(item)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
   return <>
     <section className="brand-artist-heading">
       <div className="container">

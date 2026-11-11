@@ -7,7 +7,6 @@ export const artistHeadshots = [
 
 export const ceePortfolioPhotos = [
   { filename: 'IMG_1718.png', width: 4284, height: 5712 },
-  { filename: 'IMG_1720.png', width: 4284, height: 5712 },
   { filename: 'IMG_5393.png', width: 3024, height: 4032 },
   { filename: 'IMG_5394.png', width: 3024, height: 4032 },
   { filename: 'IMG_5395.png', width: 3024, height: 4032 },
@@ -16,7 +15,6 @@ export const ceePortfolioPhotos = [
 ] as const;
 
 export const ceePortfolioVideos = [
-  '11116604-C8BC-46E4-A638-46E23C1E9138.mp4',
   '370CAC18-0C44-4CE3-9EEB-71AC5FF2BE55.mp4',
   '3BE97116-CC8E-4546-A9B0-7068D1A9C021.mp4',
   '7EACAEFE-4995-4049-8792-1FAF4518A447.mp4',

@@ -16,12 +16,14 @@ const assets={
     'Dolphin_Radar_20261111082842.png'
   ],
   Titi:[
-    'IMG_1718.png','IMG_1720.png','IMG_6519.png'
+    'IMG_1718.png','IMG_6519.png'
   ]
 };
 
 await fs.mkdir(destination,{recursive:true});
-await fs.rm(path.join(destination,'titi-IMG_1714.webp'),{force:true});
+for(const stale of ['titi-IMG_1714.webp','titi-IMG_1720.webp','cee-hero.webp','cee-cornrows.mp4']){
+  await fs.rm(path.join(destination,stale),{force:true});
+}
 sharp.cache(false);
 for(const [folder,files] of Object.entries(assets)){
   for(const name of files){
