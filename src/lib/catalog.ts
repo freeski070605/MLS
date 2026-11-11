@@ -1,3 +1,4 @@
+import { artistHeadshots } from '../../prisma/artist-media';
 import { db } from './db';
 
 export const starterArtists=[
@@ -23,8 +24,9 @@ export const starterServices=[
   {slug:'trim',name:'Trim',category:'natural-hair',priceType:'VARIES',priceMin:null,priceMax:null,shortDescription:null}
 ];
 
-function publicArtist<T extends {slug:string;displayName:string}>(artist:T):T{
+function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null}>(artist:T):T{
   if(artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina')return {...artist,displayName:'Cee'};
+  if(!artist.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===artist.slug);if(headshot)return {...artist,photoUrl:headshot.imageUrl};}
   return artist;
 }
 
