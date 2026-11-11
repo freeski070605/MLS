@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect,useRef,useState} from 'react';
+import React,{useEffect,useRef,useState} from 'react';
 
 /**
  * The thumbnail is a real frame from THIS video, never an unrelated photo.
