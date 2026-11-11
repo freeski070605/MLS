@@ -73,6 +73,25 @@ Posters for selected Ke videos are real frames from each respective video. Cee's
 - Gallery: three separate sections for MAH ESTI, GET TWISTED, and Cee. Existing owner uploaded gallery records remain available.
 - MAH ESTI and About: esthetics imagery stays within skin and body care context.
 
+| Selected source | Public placement |
+| --- | --- |
+| Ke `IMG_9173.JPG` | GET TWISTED lead, homepage loc card and lookbook tile, loc services |
+| Ke `IMG_0455.JPG`, `IMG_0104.JPG` | GET TWISTED profile preview and full gallery |
+| Ke `IMG_1710.HEIC`, `IMG_2256_Original.HEIC`, `IMG_2747.HEIC`, `IMG_2724.JPG`, `IMG_2743.HEIC` | GET TWISTED full gallery |
+| Ke `IMG_1755.mp4` | GET TWISTED profile preview and full gallery; edited highlight |
+| Ke `recorded-31849307613849.mp4` | GET TWISTED full gallery |
+| Ke `Dolphin_Radar_20261111082823.png` | Homepage, MAH ESTI story, Shante esthetics portfolio, About |
+| Ke `Dolphin_Radar_20261111082827.png` | Homepage esthetics card, gallery hero, Shante esthetics portfolio |
+| Ke `Dolphin_Radar_20261111082842.png` | MAH ESTI detail, services hero, Shante esthetics portfolio |
+| Ke `Dolphin_Radar_20261111082815.mp4` | Homepage motion feature, Shante esthetics profile and gallery |
+| Ke `Dolphin_Radar_20261111082840.mp4` | Shante esthetics full gallery |
+| Cee `11116604-C8BC-46E4-A638-46E23C1E9138.mp4` | Homepage hero still, Cee portfolio lead still and motion feature; edited highlight |
+| Cee `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` | Cee booking and artists directory stills, Cee portfolio still and edited highlight |
+| Cee `IMG_1720.png` | Homepage braid card, services hero, gallery hero, Cee portfolio, About composition |
+| Cee `IMG_1718.png`, `IMG_6519.png` | Cee full gallery |
+| Cee `BC3ED02A-588C-4C69-8718-9950689904D5.mp4` | Cee full gallery |
+| Ke `IMG_0549.PNG`, Cee `IMG_0550.JPG` | Existing artist headshot positions, unchanged |
+
 The manifest is `src/lib/brand-media.ts`. `scripts/prepare-brand-media.mjs` creates the browser ready WebP and MP4 derivatives during `predev` and `prebuild`; `public/brand/editorial` is generated and ignored by Git. HEIC decoding uses FFmpeg. Original photographs and footage are never overwritten.
 
 ## Edit record and owner review
