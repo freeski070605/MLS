@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { brandCollections,locCollection } from '@/lib/brand-media';
+import VideoWithOwnPreview from '@/components/video-with-own-preview';
 
 type Props={artistSlug:'shante'|'christina';mode?:'preview'|'full';discipline?:'esthetics'|'locs'};
 
@@ -27,10 +28,7 @@ export default function BrandPortfolio({artistSlug,mode='preview',discipline='es
       <div className={`brand-films ${preview?'is-preview':''}`}>
         {films.map(film=><figure className="brand-film" key={film.src}>
           <div className="brand-film-frame">
-            <video controls playsInline preload="none" poster={film.poster} aria-label={film.title}>
-              <source src={film.src} type="video/mp4"/>
-              Your browser does not support this video.
-            </video>
+            <VideoWithOwnPreview src={film.src} title={film.title}/>
           </div>
           <figcaption>{film.title}</figcaption>
         </figure>)}
