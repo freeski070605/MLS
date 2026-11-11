@@ -8,7 +8,7 @@ type Answers=Record<string,string|string[]>;
 const steps=7; // Sections 01–05, 06 safety consent, then 07 comfort
 export default function MahEstiWaxingForm({configured}:{configured:boolean}){
  const [step,setStep]=useState(0);
- const [answers,setAnswers]=useState<Answers>({appointmentDate:new Date().toISOString().slice(0,10)});
+ const [answers,setAnswers]=useState<Answers>({});
  const [ack,setAck]=useState<boolean[]>([false,false,false]);
  const [signature,setSignature]=useState('');
  const [accepted,setAccepted]=useState(false);
