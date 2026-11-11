@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { brandCollections } from '@/lib/brand-media';
 import { mahSections,mahPrice } from '@/lib/mah-esti';
-import ArtistRequestForm from '@/components/artist-request-form';
+import MahEstiIntakeForm from '@/components/mah-esti-intake-form';
+import {intakeReady} from '@/lib/mah-esti-security';
 
 export const metadata:Metadata={title:'MAH ESTI | Facials, Body Care & Spa Experiences',description:'Explore MAH ESTI by Shante: seven custom facials, five body treatments, and six signature spa packages.'};
 
@@ -59,8 +60,8 @@ export default async function MahEsti({searchParams}:{searchParams:Promise<{serv
     </section>)}
   </div>
   <section className="mah-cta-section" id="consultation"><div className="container mah-consult-grid">
-    <div><p className="eyebrow">The first step / MAH ESTI</p><h2>Let&apos;s talk <em>skin.</em></h2><p>Not sure where to begin? Tell Ke what you&apos;re looking for. She can help you choose your facial, body treatment or signature spa package.</p><div className="mah-consult-promise"><span>01 / Choose your interest</span><span>02 / Share your goals</span><span>03 / Get a personal follow-up</span></div></div>
-    <div className="mah-consult-form"><ArtistRequestForm kind="ke-consultation" services={all.map(item=>item.name)} initialService={initial}/></div>
+    <div><p className="eyebrow">The first step / MAH ESTI</p><h2>Your skin. <em>Your story.</em></h2><p>Complete Ke&apos;s official MAH ESTI Facial Client Consultation &amp; Skin Analysis. The intake covers your skincare goals, routine, relevant safety history, comfort preferences, and consent before your appointment.</p><div className="mah-consult-promise"><span>01 / Your skin &amp; goals</span><span>02 / Safety &amp; personalization</span><span>03 / Private review by Ke</span></div></div>
+    <div className="mah-consult-form"><MahEstiIntakeForm configured={intakeReady()} service={initial}/></div>
   </div></section>
   <section className="cta-band brand-closing"><p className="eyebrow">MAH ESTI x MahLovely</p><h2>Come as you are. Leave glowing.</h2><Link className="button button-light" href="/artists/shante">Meet Shante ↗</Link></section>
  </>;
