@@ -7,7 +7,7 @@ const photo=(folder:'Ke'|'Titi',filename:string,alt:string,caption:string,positi
 const film=(folder:'Ke'|'Titi',filename:string,title:string,poster:string,edit?:string):BrandFilm=>({src:edit?`/brand/editorial/${edit}.mp4`:`/brand/${folder}/${filename}`,original:`/brand/${folder}/${filename}`,poster,title});
 
 export const ceeHeroPhoto:BrandPhoto=photo('Titi','IMG_6519.png','Radial braid pattern with purple beads by Cee','The braid edit','center 35%');
-export const ceeBookingPhoto:BrandPhoto={src:'/brand/curated/cee-braids-feature.webp',original:'/brand/Titi/7EACAEFE-4995-4049-8792-1FAF4518A447.mp4',alt:'Finished braided bun with clearly visible braid pattern by Cee',caption:'A finished look',position:'center 40%'};
+export const ceeBookingPhoto:BrandPhoto={src:'/brand/curated/cee-braids-feature.webp',original:'/brand/Titi/7EACAEFE-4995-4049-8792-1FAF4518A447.mp4',alt:'Finished braided ponytail with clearly visible braid pattern by Cee',caption:'A finished look',position:'center 40%'};
 
 export const locCollection:BrandCollection={
   name:'Shante',discipline:'GET TWISTED · loc artistry',intro:'Retwists, precise parts, finished styles and the care behind every loc look.',
@@ -44,7 +44,7 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
       ceeBookingPhoto,
     ],
     films:[
-      film('Titi','7EACAEFE-4995-4049-8792-1FAF4518A447.mp4','Braided bun and bead detail by Cee','/brand/curated/cee-braids-feature.webp'),
+      film('Titi','7EACAEFE-4995-4049-8792-1FAF4518A447.mp4','Braided ponytail and bead detail by Cee','/brand/curated/cee-braids-feature.webp'),
       film('Titi','BC3ED02A-588C-4C69-8718-9950689904D5.mp4','Radial braid pattern by Cee','/brand/Titi/posters/BC3ED02A-588C-4C69-8718-9950689904D5.jpg')
     ]
   }
