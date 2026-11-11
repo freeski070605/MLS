@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import GalleryMedia from '@/components/gallery-media';
+import VideoWithOwnPreview from '@/components/video-with-own-preview';
 import { getArtists,getCategories,getServices } from '@/lib/catalog';
 import { brandCollections,locCollection,allOriginalBrandUrls,hasRejectedBrandMedia,isRejectedBrandMedia } from '@/lib/brand-media';
 import { content,priceLabel,setting } from '@/lib/site';
@@ -91,7 +92,7 @@ export default async function Home(){
         <div className="brand-motion-title"><div><p className="eyebrow">The details are everything</p><h2>More than a finished look.</h2></div><p>It&apos;s the care, the hands, and the process behind it. Get a closer look at the artistry.</p></div>
         <div className="brand-motion-duo">
           {[{collection:shante,slug:'shante'},{collection:cee,slug:'christina'}].map(({collection,slug})=><article className="brand-motion-feature" key={slug}>
-            <div className="brand-motion-video"><video controls playsInline preload="none" poster={collection.films[0].poster} aria-label={collection.films[0].title}><source src={collection.films[0].src} type="video/mp4"/>Your browser does not support this video.</video></div>
+            <div className="brand-motion-video"><VideoWithOwnPreview src={collection.films[0].src} title={collection.films[0].title}/></div>
             <div className="brand-motion-info"><div><span className="eyebrow">From the chair / {collection.name}</span><h3>{collection.discipline}</h3></div><Link className="text-link" href={slug==='shante'?'/mah-esti':`/gallery?artist=${slug}`}>Explore the work ↗</Link></div>
           </article>)}
         </div>
