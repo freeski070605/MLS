@@ -435,3 +435,27 @@ a:hover .brand-image{transform:scale(1.035)}
   .mah-editorial-photo-detail{height:200px;margin-left:auto;margin-right:0}
 }
 @media(max-width:480px){.mah-editorial-photo-main{height:380px}.mah-editorial-photo-detail{height:165px}}
+
+
+/* Get Twisted by Shante — loc booking & policies */
+.shante-policy-section{max-width:1240px;margin:0 auto}
+.shante-policy-heading{max-width:760px;margin-bottom:36px}
+.shante-policy-heading h2{font-size:clamp(2.8rem,5vw,5.5rem);margin-bottom:18px}
+.shante-policy-heading h2 span{color:#9f7644}
+.shante-policy-heading>p:not(.eyebrow){color:#655b4f;font-size:1.06rem;max-width:650px}
+.shante-policy-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.shante-policy-item{background:#fffdf8;border:1px solid #d9cabb;padding:30px;min-height:230px}
+.shante-policy-number{font-size:.7rem;letter-spacing:.2em;font-weight:700;color:#9d7d52}
+.shante-policy-item h3{font-family:var(--serif);font-size:clamp(1.5rem,2.3vw,2.15rem);margin:23px 0 14px}
+.shante-policy-item p{font-size:.93rem;line-height:1.8;color:#65594d;margin:0}
+.shante-policy-item:first-child{background:#2b2520;color:#fff9ef}
+.shante-policy-item:first-child h3{color:#fff9ef}
+.shante-policy-item:first-child p{color:#e6d9c7}
+.shante-policy-foot{margin-top:22px;padding:22px 0;border-top:1px solid #d7c8b6;display:flex;justify-content:space-between;align-items:center;gap:30px}
+.shante-policy-foot p{max-width:780px;font-size:.82rem;color:#71675c;margin:0}
+.shante-policy-foot .text-link{white-space:nowrap}
+.shante-policy-profile{background:#eee5d9}
+.shante-policy-booking{background:#f2ebe1}
+.shante-policy-section.is-compact .shante-policy-heading h2{font-size:clamp(2.5rem,4.5vw,4.7rem)}
+@media(max-width:1000px){.shante-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.shante-policy-grid{grid-template-columns:1fr}.shante-policy-item{min-height:unset;padding:24px}.shante-policy-foot{display:block}.shante-policy-foot .text-link{margin-top:16px}.shante-policy-heading h2{font-size:clamp(2.5rem,8vw,4.2rem)}}
