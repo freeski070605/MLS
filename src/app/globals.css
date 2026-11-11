@@ -214,3 +214,49 @@ a:hover .brand-image{transform:scale(1.035)}
   .brand-motion-heading{display:block}
   .brand-small-note{display:block;margin-top:14px}
 }
+
+
+/* Supporting editorial pages */
+.brand-artist-list-hero{background:#e8dfd2;overflow:hidden}
+.brand-artist-list-hero-inner,.brand-services-hero-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.82fr);gap:65px;align-items:center;padding-top:80px;padding-bottom:80px}
+.brand-artist-list-hero h1,.brand-services-hero h1,.brand-about-hero h1{font-size:clamp(3.7rem,7vw,7.5rem);line-height:1.08;letter-spacing:-.055em}
+.brand-artist-list-hero h1 em,.brand-about-hero h1 em,.brand-services-hero h1 em{color:#966f38;font-weight:400}
+.brand-artist-list-hero-inner>div:first-child>p:last-child,.brand-services-hero-inner>div:first-child>p:not(.eyebrow){font-size:1.07rem;max-width:510px;color:#665e54}
+.brand-artist-list-image,.brand-services-hero-visual{position:relative;height:530px;overflow:hidden;background:#cabbaa}
+.brand-artist-list-body{background:#27241f;color:#f8f5ef}
+.brand-artist-list-body .artist-card{min-height:620px}
+.brand-artist-list-body .artist-card-image .text-link{color:#fff}
+.brand-about-hero{background:#e7ddcf;overflow:hidden}
+.brand-about-hero-inner{display:grid;grid-template-columns:1fr .95fr;gap:45px;min-height:650px;align-items:center;padding-top:50px;padding-bottom:50px}
+.brand-about-hero-copy>p:not(.eyebrow){max-width:470px;color:#665e51;font-size:1.15rem}
+.brand-about-hero-copy .button{margin-top:25px}
+.brand-about-hero-art{height:570px;position:relative}
+.brand-about-hero-art>div{position:absolute;overflow:hidden;background:#b8a997}
+.brand-about-art-one{top:0;left:0;width:59%;height:79%;transform:rotate(-3deg)}
+.brand-about-art-two{bottom:0;right:0;width:54%;height:67%;transform:rotate(4deg);border:8px solid #e7ddcf}
+.brand-about-story{background:#f8f5ef}
+.brand-about-values{background:#28241f;color:#f8f5ef}
+.brand-about-values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.brand-about-values-grid article{border-top:1px solid #8f7959;padding:25px 10px 0 0}
+.brand-about-values-grid article>span{font-size:.7rem;letter-spacing:.16em;color:#dcc18d}
+.brand-about-values-grid h3{font:400 clamp(2rem,3vw,3.3rem)/1.1 var(--serif);margin:35px 0 22px}
+.brand-about-values-grid p{max-width:260px;color:#c7beb1}
+.brand-services-hero{background:#e8dfd2}
+.brand-services-hero-inner{min-height:530px}
+.brand-services-hero-inner .text-link{margin-top:22px}
+.brand-services-list{background:#f8f5ef}
+.brand-services-toolbar{display:flex;align-items:end;justify-content:space-between;gap:40px}
+.brand-services-toolbar h2{margin:0}
+.brand-services-toolbar>p{max-width:380px;color:#786e62}
+.brand-services-list .filter-row{margin-top:30px;margin-bottom:38px}
+.brand-services-list .service-card{box-shadow:none;border-top:2px solid #c9af82;min-height:255px}
+@media(max-width:760px){
+  .brand-artist-list-hero-inner,.brand-services-hero-inner,.brand-about-hero-inner{grid-template-columns:1fr;gap:30px;padding-top:50px;padding-bottom:45px}
+  .brand-artist-list-hero h1,.brand-services-hero h1,.brand-about-hero h1{font-size:clamp(3.5rem,10vw,5rem)}
+  .brand-artist-list-image,.brand-services-hero-visual{height:350px}
+  .brand-about-hero-art{height:360px}
+  .brand-about-values-grid{grid-template-columns:1fr;gap:35px}
+  .brand-artist-list-body .artist-card{min-height:510px}
+  .brand-services-toolbar{display:block}
+  .brand-services-toolbar>p{margin-top:24px}
+}
