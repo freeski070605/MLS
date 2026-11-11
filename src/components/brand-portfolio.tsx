@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { brandCollections } from '@/lib/brand-media';
+import { brandCollections,locCollection } from '@/lib/brand-media';
 
-type Props={artistSlug:'shante'|'christina';mode?:'preview'|'full'};
+type Props={artistSlug:'shante'|'christina';mode?:'preview'|'full';discipline?:'esthetics'|'locs'};
 
-export default function BrandPortfolio({artistSlug,mode='preview'}:Props){
-  const collection=brandCollections[artistSlug];
+export default function BrandPortfolio({artistSlug,mode='preview',discipline='esthetics'}:Props){
+  const collection=artistSlug==='shante'&&discipline==='locs'?locCollection:brandCollections[artistSlug];
   const preview=mode==='preview';
   const photos=preview?collection.photos.slice(0,3):collection.photos;
   const films=preview?collection.films.slice(0,1):collection.films;

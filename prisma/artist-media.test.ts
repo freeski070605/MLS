@@ -16,13 +16,13 @@ describe('artist media inventory', () => {
     }
   });
 
-  it('lists every available Cee portfolio image and video once', () => {
-    expect(ceePortfolioPhotos).toHaveLength(8);
+  it('lists every publishable Cee portfolio image and supplied video once', () => {
+    expect(ceePortfolioPhotos).toHaveLength(7);
     expect(ceePortfolioVideos).toHaveLength(8);
-    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(8);
+    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(7);
     expect(new Set(ceePortfolioVideos).size).toBe(8);
     const ceeDirectory = path.join(mediaDirectory, 'Titi');
-    const actualPhotos = readdirSync(ceeDirectory).filter((filename) => /\.(png|jpe?g)$/i.test(filename) && filename !== 'IMG_0550.JPG').sort();
+    const actualPhotos = readdirSync(ceeDirectory).filter((filename) => /\.(png|jpe?g)$/i.test(filename) && filename !== 'IMG_0550.JPG' && filename !== 'IMG_1714.png').sort();
     const actualVideos = readdirSync(ceeDirectory).filter((filename) => /\.mp4$/i.test(filename)).sort();
     expect(ceePortfolioPhotos.map((photo) => photo.filename).sort()).toEqual(actualPhotos);
     expect([...ceePortfolioVideos].sort()).toEqual(actualVideos);
@@ -31,7 +31,7 @@ describe('artist media inventory', () => {
     }
   });
 
-  it('accounts for all 18 supplied files without assigning a headshot to the portfolio', () => {
-    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(18);
+  it('keeps both headshots separate from the publishable portfolio', () => {
+    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(17);
   });
 });

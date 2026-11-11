@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { db } from '@/lib/db';
 import { getArtists,getCategories } from '@/lib/catalog';
-import { brandCollections,allOriginalBrandUrls } from '@/lib/brand-media';
+import { brandCollections,allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
 import BrandPortfolio from '@/components/brand-portfolio';
 import GalleryMedia from '@/components/gallery-media';
 
@@ -21,10 +21,10 @@ export default async function Gallery({searchParams}:{searchParams:Promise<{cate
     });
   }catch{}
   const showShante=(!q.artist||q.artist==='shante')&&(!q.category||q.category==='esthetics');
-  const showLocPlaceholder=(!q.artist||q.artist==='shante')&&(!q.category||q.category==='locs');
+  const showLocs=(!q.artist||q.artist==='shante')&&(!q.category||q.category==='locs');
   const showCee=(!q.artist||q.artist==='christina')&&(!q.category||q.category==='braids');
-  const customItems=items.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
-  const anyWork=showShante||showCee||showLocPlaceholder||customItems.length>0;
+  const customItems=items.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const anyWork=showShante||showCee||showLocs||customItems.length>0;
   return <>
     <section className="brand-gallery-hero">
       <div className="container brand-gallery-hero-inner">
@@ -47,9 +47,9 @@ export default async function Gallery({searchParams}:{searchParams:Promise<{cate
         <div className="brand-gallery-artist-heading"><span className="brand-gallery-index">01 / ARTIST</span><h2>Shante<span>.</span></h2><p>MAH ESTI / facials, body care &amp; spa experiences</p><Link className="text-link" href="/artists/shante">Meet the artist ↗</Link></div>
         <BrandPortfolio artistSlug="shante" mode="full"/><p className="mah-lookbook-link"><Link className="button button-dark" href="/mah-esti">Explore MAH ESTI treatments ↗</Link></p>
       </section>}
-      {showLocPlaceholder&&<section className="brand-gallery-artist mah-loc-placeholder" aria-label="Ke loc portfolio coming soon">
-        <div className="brand-gallery-artist-heading"><span className="brand-gallery-index">LOC ARTISTRY / SHANTE</span><h2>The loc edit<span>.</span></h2><p>Ke&apos;s loc portfolio is coming soon.</p><Link className="text-link" href="/artists/shante">Meet Shante ↗</Link></div>
-        <div className="mah-loc-holding"><div className="mah-loc-holding-mark"><span>MAH</span><strong>LOCS</strong></div><div><p className="eyebrow">New work on the way</p><h3>Crafted with care. Revealed soon.</h3><p>We&apos;re making room for Shante&apos;s loc transformations. Until her dedicated loc photos arrive, explore her services and reach out for a consultation.</p><Link className="button button-light" href="/artists/shante">Explore Ke&apos;s services ↗</Link></div></div>
+      {showLocs&&<section className="brand-gallery-artist" aria-label="GET TWISTED loc portfolio">
+        <div className="brand-gallery-artist-heading"><span className="brand-gallery-index">GET TWISTED / SHANTE</span><h2>The loc edit<span>.</span></h2><p>Retwists, finished styles &amp; loc care</p><Link className="text-link" href="/artists/shante">Meet Shante ↗</Link></div>
+        <BrandPortfolio artistSlug="shante" discipline="locs" mode="full"/>
       </section>}
       {showCee&&<section className="brand-gallery-artist" aria-label="Cee portfolio">
         <div className="brand-gallery-artist-heading"><span className="brand-gallery-index">02 / ARTIST</span><h2>Cee<span>.</span></h2><p>Braiding &amp; natural hair</p><Link className="text-link" href="/artists/christina">Meet the artist ↗</Link></div>

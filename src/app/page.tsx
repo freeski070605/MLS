@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GalleryMedia from '@/components/gallery-media';
 import { getArtists,getCategories,getServices } from '@/lib/catalog';
-import { brandCollections,allOriginalBrandUrls } from '@/lib/brand-media';
+import { brandCollections,locCollection,allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
 import { content,priceLabel,setting } from '@/lib/site';
 import { db } from '@/lib/db';
 
@@ -25,7 +25,7 @@ export default async function Home(){
     db.testimonial.findMany({where:{status:'PUBLISHED',featured:true},take:3,orderBy:{createdAt:'desc'}}),
     db.socialPost.findMany({where:{published:true,featured:true},take:4,orderBy:{displayOrder:'asc'}})
   ]);}catch{}
-  const studioUpdates=gallery.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const studioUpdates=gallery.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
   const cee=brandCollections.christina;
   const shante=brandCollections.shante;
   return <>
@@ -43,7 +43,7 @@ export default async function Home(){
         </div>
         <div className="brand-hero-editorial" aria-label="A glimpse of MahLovely Studio's artists' work">
           <figure className="brand-hero-image brand-hero-image-main">
-            <Image src={cee.photos[0].src} alt={cee.photos[0].alt} fill priority sizes="(max-width: 760px) 65vw, 32vw" className="brand-image"/>
+            <Image src={cee.photos[0].src} alt={cee.photos[0].alt} fill priority sizes="(max-width: 760px) 65vw, 32vw" className="brand-image" style={{objectPosition:cee.photos[0].position}}/>
             <figcaption><span>01</span> Braids by Cee</figcaption>
           </figure>
           <figure className="brand-hero-image brand-hero-image-side">
@@ -77,7 +77,7 @@ export default async function Home(){
       <div className="container">
         <div className="section-heading"><div><p className="eyebrow">The art of care</p><h2>Find your thing.</h2></div><Link className="text-link" href="/services">Explore the full menu ↗</Link></div>
         <div className="brand-category-grid">{categories.map((c,i)=>{
-          const artwork=c.slug==='esthetics'?shante.photos[1]:c.slug==='braids'?cee.photos[1]:null;
+          const artwork=c.slug==='esthetics'?shante.photos[1]:c.slug==='braids'?cee.photos[1]:c.slug==='locs'?locCollection.photos[0]:null;
           return <Link className={'brand-category'+(artwork?' has-art':'')} key={c.slug} href={`/services?category=${c.slug}`}>
             {artwork&&<Image src={artwork.src} alt={artwork.alt} fill sizes="(max-width: 760px) 100vw, 27vw" className="brand-image" loading="lazy"/>}
             <div className="brand-category-content"><span>0{i+1} / {c.name}</span><h3>{c.name}</h3><p>{c.description}</p><span className="brand-category-arrow">Explore ↗</span></div>
@@ -105,7 +105,7 @@ export default async function Home(){
       <div className="container">
         <div className="section-heading"><div><p className="eyebrow">The lookbook</p><h2>Every detail tells a story.</h2></div><Link className="text-link" href="/gallery">View the lookbook ↗</Link></div>
         <div className="brand-lookbook-grid">
-          {[{photo:cee.photos[2],artist:'Cee',slug:'christina'},{photo:shante.photos[2],artist:'Shante',slug:'shante'},{photo:cee.photos[3],artist:'Cee',slug:'christina'}].map(({photo,artist,slug},i)=><Link className="brand-lookbook-tile" key={photo.src} href={`/gallery?artist=${slug}`}>
+          {[{photo:cee.photos[2],artist:'Cee',href:'/gallery?artist=christina'},{photo:locCollection.photos[0],artist:'Shante',href:'/gallery?category=locs'},{photo:shante.photos[2],artist:'Shante',href:'/gallery?category=esthetics'}].map(({photo,artist,href},i)=><Link className="brand-lookbook-tile" key={photo.src} href={href}>
             <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 760px) 95vw, 33vw" loading="lazy" className="brand-image"/>
             <span className="brand-lookbook-caption"><span>0{i+1} / {artist}</span><strong>{photo.caption}</strong><span>Discover ↗</span></span>
           </Link>)}

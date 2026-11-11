@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getCategories,getServices } from '@/lib/catalog';
-import { brandCollections } from '@/lib/brand-media';
+import { brandCollections,locCollection } from '@/lib/brand-media';
 import { priceLabel } from '@/lib/site';
 import { mahSections } from '@/lib/mah-esti';
 
@@ -14,10 +14,11 @@ export default async function Services({searchParams}:{searchParams:Promise<{cat
   const showMah=(!query.artist||query.artist==='shante')&&(!query.category||query.category==='esthetics');
   const allMah=mahSections.flatMap(section=>section.items);
   const unseededMah=query.category==='esthetics'?allMah.filter(item=>!services.some(s=>s.slug===item.slug)):[];
+  const heroPhoto=query.category==='locs'?locCollection.photos[0]:query.category==='braids'||query.artist==='christina'?brandCollections.christina.photos[1]:brandCollections.shante.photos[2];
   return <>
     <section className="brand-services-hero"><div className="container brand-services-hero-inner">
       <div><p className="eyebrow">The service menu</p><h1>Made for <em>you.</em></h1><p>Thoughtful care for your hair, skin, and crown. Explore the services, then book the experience that feels right.</p><Link className="text-link" href="/artists">Meet your artist ↗</Link></div>
-      <div className="brand-services-hero-visual"><Image src={brandCollections.shante.photos[2].src} alt={brandCollections.shante.photos[2].alt} fill priority sizes="(max-width:760px) 100vw, 42vw" className="brand-image"/></div>
+      <div className="brand-services-hero-visual"><Image src={heroPhoto.src} alt={heroPhoto.alt} fill priority sizes="(max-width:760px) 100vw, 42vw" className="brand-image" style={{objectPosition:heroPhoto.position}}/></div>
     </div></section>
     <section className="section-tight brand-services-list"><div className="container">
       <div className="brand-services-toolbar"><div><p className="eyebrow">Discover your next look</p><h2>The menu.</h2></div><p>Prices reflect the information currently available. Your artist can help clarify the details of your visit.</p></div>

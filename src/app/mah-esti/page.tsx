@@ -43,7 +43,7 @@ export default async function MahEsti({searchParams}:{searchParams:Promise<{serv
     </div>
   </section>
   <div id="mah-menu">
-    {mahSections.map((section,index)=><section id={section.id} className={'mah-menu-section mah-menu-'+section.id} key={section.id}>
+    {mahSections.map(section=><section id={section.id} className={'mah-menu-section mah-menu-'+section.id} key={section.id}>
       <div className="container"><header className="mah-section-head">
        <div><p className="eyebrow">{section.eyebrow}</p><h2>{section.title}<span>.</span></h2></div><p>{section.intro}</p>
       </header>
