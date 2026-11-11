@@ -1,6 +1,7 @@
 import { PrismaClient, PriceType } from '@prisma/client';
 import { hash } from 'bcryptjs';
 import { mahSections } from '../src/lib/mah-esti';
+import { shanteLocPolicyText } from '../src/lib/shante-loc-policies';
 import { artistRenamePatch,legacyArtistProfiles,type LegacyArtistProfile } from './artist-names';
 import { ARTIST_MEDIA_SEED_TAG,artistHeadshots,ceePortfolioPhotos,ceePortfolioVideos } from './artist-media';
 const db=new PrismaClient();
@@ -152,6 +153,8 @@ async function main(){
   ];
   const policyNames=['Deposits','Cancellations','Rescheduling','Late Arrivals','No-Shows','Guests','Hair Preparation','Children','Refunds','Esthetics','Health & Safety','Appointment Expectations'];
   for(let i=0;i<policyNames.length;i++){const title=policyNames[i];const slug=title.toLowerCase().replace(/[^a-z0-9]+/g,'-');const supplied=policyData.find(p=>p.slug===slug);await db.policy.upsert({where:{slug},create:{slug,title,body:supplied?.body??'',status:supplied?'PUBLISHED':'DRAFT',displayOrder:i},update:supplied?{body:supplied.body,status:'PUBLISHED'}:{}});}
+  // Keep the full flyer wording in the admin policy library without overwriting later edits.
+  await db.policy.upsert({where:{slug:'shante-loc-booking'},create:{slug:'shante-loc-booking',title:'Shante Loc Booking & Policies',body:shanteLocPolicyText,status:'PUBLISHED',displayOrder:13},update:{}});
   const templates=[
     ['email_verification','Verify your MahLovely account','<p>Use this link to verify your email: <a href="{{link}}">Verify email</a></p>'],
     ['password_reset','Reset your MahLovely password','<p>Use this link to reset your password: <a href="{{link}}">Reset password</a></p>'],
