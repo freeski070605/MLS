@@ -459,3 +459,7 @@ a:hover .brand-image{transform:scale(1.035)}
 .shante-policy-section.is-compact .shante-policy-heading h2{font-size:clamp(2.5rem,4.5vw,4.7rem)}
 @media(max-width:1000px){.shante-policy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.shante-policy-grid{grid-template-columns:1fr}.shante-policy-item{min-height:unset;padding:24px}.shante-policy-foot{display:block}.shante-policy-foot .text-link{margin-top:16px}.shante-policy-heading h2{font-size:clamp(2.5rem,8vw,4.2rem)}}
+
+.shante-booking-confirm-policies{background:#f2e7d9;border:1px solid #c7ad8f;padding:25px}
+.shante-booking-confirm-policies h3{font:400 1.9rem var(--serif);margin:0 0 18px}
+.shante-booking-confirm-policies p{font-size:.91rem;line-height:1.7;margin:8px 0}
