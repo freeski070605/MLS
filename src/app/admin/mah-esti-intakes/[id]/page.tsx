@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import {currentUser} from '@/lib/auth';
 import {db} from '@/lib/db';
+import {staffCanViewIntakes} from '@/lib/staff-scope';
 import {decryptIntake,intakeReady} from '@/lib/mah-esti-security';
 import {intakeSections,consentText} from '@/lib/mah-esti-intake';
 import {waxingSections,waxingConsent,waxingAcknowledgments,waxingClearanceText} from '@/lib/mah-esti-waxing';
@@ -11,7 +12,7 @@ export const dynamic='force-dynamic';
 type Payload={kind?:'facial'|'waxing';answers:Record<string,string|string[]>;service?:string;signature:string;initials?:string|null;acknowledgments?:boolean[]|null;signedAt:string;consentAccepted:boolean};
 export default async function IntakeDetail({params}:{params:Promise<{id:string}>}){
  const user=await currentUser();
- if(!user||!['OWNER','ADMIN','ARTIST'].includes(user.role)||user.role==='ARTIST'&&user.artist?.slug!=='shante')notFound();
+ if(!user||!staffCanViewIntakes(user))notFound();
  if(!intakeReady())notFound();
  const {id}=await params;if(!/^[0-9a-f]{24}$/i.test(id))notFound();
  const record=await db.mahEstiIntake.findUnique({where:{id}});if(!record)notFound();
