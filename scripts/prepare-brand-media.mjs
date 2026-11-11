@@ -16,7 +16,7 @@ const assets={
     'Dolphin_Radar_20261111082842.png'
   ],
   Titi:[
-    'IMG_1718.png','IMG_6519.png'
+    'IMG_5395.png','IMG_6519.png'
   ]
 };
 
