@@ -34,7 +34,7 @@ Individual sampled frames and HEIC inspection conversions are in `media-review/`
 | Artist | Files | Review decision |
 | --- | --- | --- |
 | Ke | `IMG_0104.JPG`, `IMG_0455.JPG`, `IMG_1710.HEIC`, `IMG_2256_Original.HEIC`, `IMG_2724.JPG`, `IMG_2743.HEIC`, `IMG_2747.HEIC`, `IMG_9173.JPG` | Selected loc styling and technique views. Vertical files suit portrait tiles; the shorter styles suit square crops. |
-| Ke | `IMG_2725.JPG`, `IMG_2727.JPG`, `IMG_2791.JPG`, `IMG_4106.JPG`, `IMG_4751.JPG` | Usable work but repeated subjects, busy room backgrounds, or less clear composition; retained as originals, omitted from curated site. |
+| Ke | `IMG_0757.JPG`, `IMG_2725.JPG`, `IMG_2727.JPG`, `IMG_2791.JPG`, `IMG_4106.JPG`, `IMG_4751.JPG` | Usable work but repeated subjects, busy room backgrounds, or less clear composition; retained as originals, omitted from curated site. |
 | Ke | `IMG_4680.HEIC` | Dim process image; not a lead portfolio shot. |
 | Ke | `IMG_0549.PNG` | Artist headshot; existing placement preserved. |
 | Ke | `Dolphin_Radar_20261111082823.png`, `Dolphin_Radar_20261111082827.png`, `Dolphin_Radar_20261111082842.png` | Selected only for MAH ESTI; first source is upside down and its derivative is rotated 180 degrees. |

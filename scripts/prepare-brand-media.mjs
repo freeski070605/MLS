@@ -14,18 +14,10 @@ const assets={
     'IMG_2724.JPG','IMG_2743.HEIC','IMG_2747.HEIC','IMG_9173.JPG',
     'Dolphin_Radar_20261111082823.png',
     'Dolphin_Radar_20261111082827.png',
-    'Dolphin_Radar_20261111082842.png',
-    'IMG_4751.JPG','IMG_2724.JPG','IMG_2725.JPG','IMG_2727.JPG',
-    'IMG_0104.JPG','IMG_0455.JPG','IMG_0757.JPG','IMG_2791.JPG',
-    'IMG_4106.JPG','IMG_9173.JPG'
+    'Dolphin_Radar_20261111082842.png'
   ],
   Titi:[
-<<<<<<< HEAD
     'IMG_1718.png','IMG_1720.png','IMG_6519.png'
-=======
-    'IMG_1718.png','IMG_1720.png',
-    'IMG_5393.png','IMG_5394.png','IMG_5395.png','IMG_5396.png','IMG_6519.png'
->>>>>>> dc93fac8f0afeebe82750a872377753558d0579b
   ]
 };
 

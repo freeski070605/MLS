@@ -12,7 +12,7 @@ export default async function Artists(){
   return <>
     <section className="brand-artist-list-hero"><div className="container brand-artist-list-hero-inner">
       <div><p className="eyebrow">The people behind MahLovely</p><h1>Two artists.<br/><em>One vision.</em></h1><p>Individual craft. Intentional care. Find the artist who understands your hair, your style, and your next look.</p></div>
-      <div className="brand-artist-list-image"><Image src={brandCollections.christina.photos[2].src} alt="Work from Cee's portfolio" fill priority sizes="(max-width: 760px) 100vw, 40vw" className="brand-image"/></div>
+      <div className="brand-artist-list-image"><Image src={brandCollections.christina.photos[2].src} alt="Work from Cee's portfolio" fill priority sizes="(max-width: 760px) 100vw, 40vw" className="brand-image" style={{objectPosition:brandCollections.christina.photos[2].position}}/></div>
     </div></section>
     <section className="section brand-artist-list-body"><div className="container">
       <div className="section-heading"><div><p className="eyebrow">Find your artist</p><h2>The faces of the craft.</h2></div></div>

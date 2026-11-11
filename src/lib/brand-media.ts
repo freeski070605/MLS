@@ -27,7 +27,7 @@ export const locCollection:BrandCollection={
   ]
 };
 
-export const brandCollections:Record<'shante'|'christina'|'shante-locs',BrandCollection>={
+export const brandCollections:Record<'shante'|'christina',BrandCollection>={
   shante:{
     name:'Shante',discipline:'MAH ESTI · skin & body care',intro:'The ritual and the care behind MAH ESTI skin and body treatments.',
     photos:[
@@ -40,45 +40,14 @@ export const brandCollections:Record<'shante'|'christina'|'shante-locs',BrandCol
       film('Ke','Dolphin_Radar_20261111082840.mp4','MAH ESTI facial treatment','/brand/editorial/ke-esti-treatment-poster.webp')
     ]
   },
-  'shante-locs':{
-    name:'Shante',discipline:'Loc artistry / Get Twisted',
-    intro:'The real work: loc care, retwists and finished styling from Ke’s portfolio.',
-    photos:[
-      photo('Ke','IMG_4751.JPG','Loc styling work from Shante','Loc artistry / featured'),
-      photo('Ke','IMG_2724.JPG','Loc work by Shante','The detail'),
-      photo('Ke','IMG_2725.JPG','Loc work by Shante','The finish'),
-      photo('Ke','IMG_2727.JPG','Loc work by Shante','Loc study / 01'),
-      photo('Ke','IMG_0104.JPG','Loc portfolio image by Shante','Loc study / 02'),
-      photo('Ke','IMG_0455.JPG','Loc portfolio image by Shante','Loc study / 03'),
-      photo('Ke','IMG_0757.JPG','Loc portfolio image by Shante','Loc study / 04'),
-      photo('Ke','IMG_2791.JPG','Loc portfolio image by Shante','Loc study / 05'),
-      photo('Ke','IMG_4106.JPG','Loc portfolio image by Shante','Loc study / 06'),
-      photo('Ke','IMG_9173.JPG','Loc portfolio image by Shante','Loc study / 07')
-    ],
-    films:[
-      {src:`${keRoot}/IMG_1755.mp4`,poster:optimized('Ke','IMG_4751.JPG'),title:'Loc artistry / 01'},
-      {src:`${keRoot}/709f1d7d31534881a26c4760c1a4415f.mp4`,poster:optimized('Ke','IMG_2724.JPG'),title:'Loc artistry / 02'},
-      {src:`${keRoot}/recorded-31849307613849.mp4`,poster:optimized('Ke','IMG_2725.JPG'),title:'Loc artistry / 03'}
-    ]
-  },
   christina:{
     name:'Cee',discipline:'Braiding & natural hair',intro:'Distinct braid patterns, clean parts, and finished looks from Cee’s chair.',
     photos:[
-<<<<<<< HEAD
       ceeHeroPhoto,
       photo('Titi','IMG_1720.png','Side view of long braids styled by Cee','The full look','center 38%'),
       ceeBookingPhoto,
       photo('Titi','IMG_1718.png','Long finished braids seen from behind','Length and detail','center 43%'),
       photo('Titi','IMG_6519.png','Radial braid pattern with purple beads by Cee','A playful finish','center 35%')
-=======
-      photo('Titi','IMG_5395.png','Braided styling by Cee','The signature look'),
-      photo('Titi','IMG_6519.png','Braiding detail by Cee','The detail'),
-      photo('Titi','IMG_5396.png','Finished braided work by Cee','The finish'),
-      photo('Titi','IMG_1720.png','Braids by Cee','Style study / 01'),
-      photo('Titi','IMG_1718.png','Hair artistry by Cee','Style study / 02'),
-      photo('Titi','IMG_5393.png','Braids by Cee','Style study / 03'),
-      photo('Titi','IMG_5394.png','Hair portfolio by Cee','Style study / 04')
->>>>>>> dc93fac8f0afeebe82750a872377753558d0579b
     ],
     films:[
       film('Titi','11116604-C8BC-46E4-A638-46E23C1E9138.mp4','Precision cornrows by Cee','/brand/editorial/cee-hero.webp','cee-cornrows'),
@@ -88,14 +57,7 @@ export const brandCollections:Record<'shante'|'christina'|'shante-locs',BrandCol
   }
 };
 
-<<<<<<< HEAD
 export const rejectedBrandMediaUrls=new Set(['/brand/Titi/IMG_1714.png','/brand/editorial/titi-IMG_1714.webp']);
 export const isRejectedBrandMedia=(url:string|null|undefined)=>!!url&&rejectedBrandMediaUrls.has(url);
 const legacySeededCeeMedia=['IMG_5393.png','IMG_5394.png','IMG_5395.png','IMG_5396.png','370CAC18-0C44-4CE3-9EEB-71AC5FF2BE55.mp4','3BE97116-CC8E-4546-A9B0-7068D1A9C021.mp4','DB0DD0FB-AD07-4CA4-B54D-C50B197117D8.mp4','DFACA024-3E24-411F-B148-75C226E2E76B.mp4','IMG_1838.mp4'];
 export const allOriginalBrandUrls=new Set<string>([...Object.values(brandCollections),locCollection].flatMap(c=>[...c.photos.map(p=>p.original),...c.films.flatMap(f=>[f.src,f.original])]).concat(legacySeededCeeMedia.map(name=>`/brand/Titi/${name}`)));
-=======
-// Cee explicitly requested that this image not appear on the website.\nexport const excludedBrandUrls=new Set(['/brand/Titi/IMG_1714.png']);
-export const allOriginalBrandUrls=new Set<string>(Object.values(brandCollections).flatMap(c=>[
-  ...c.photos.map(p=>p.original),...c.films.map(f=>f.src)
-]));
->>>>>>> dc93fac8f0afeebe82750a872377753558d0579b

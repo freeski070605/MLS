@@ -2,11 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GalleryMedia from '@/components/gallery-media';
 import { getArtists,getCategories,getServices } from '@/lib/catalog';
-<<<<<<< HEAD
 import { brandCollections,locCollection,allOriginalBrandUrls,isRejectedBrandMedia } from '@/lib/brand-media';
-=======
-import { brandCollections,allOriginalBrandUrls,excludedBrandUrls } from '@/lib/brand-media';
->>>>>>> dc93fac8f0afeebe82750a872377753558d0579b
 import { content,priceLabel,setting } from '@/lib/site';
 import { db } from '@/lib/db';
 
@@ -29,11 +25,7 @@ export default async function Home(){
     db.testimonial.findMany({where:{status:'PUBLISHED',featured:true},take:3,orderBy:{createdAt:'desc'}}),
     db.socialPost.findMany({where:{published:true,featured:true},take:4,orderBy:{displayOrder:'asc'}})
   ]);}catch{}
-<<<<<<< HEAD
   const studioUpdates=gallery.filter(item=>!isRejectedBrandMedia(item.imageUrl)&&!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
-=======
-  const studioUpdates=gallery.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||'')&&!excludedBrandUrls.has(item.imageUrl||item.videoUrl||''));
->>>>>>> dc93fac8f0afeebe82750a872377753558d0579b
   const cee=brandCollections.christina;
   const shante=brandCollections.shante;
   return <>
@@ -55,7 +47,7 @@ export default async function Home(){
             <figcaption><span>01</span> Braids by Cee</figcaption>
           </figure>
           <figure className="brand-hero-image brand-hero-image-side">
-            <Image src={shante.photos[0].src} alt={shante.photos[0].alt} fill priority sizes="(max-width: 760px) 44vw, 20vw" className="brand-image"/>
+            <Image src={shante.photos[0].src} alt={shante.photos[0].alt} fill priority sizes="(max-width: 760px) 44vw, 20vw" className="brand-image" style={{objectPosition:shante.photos[0].position}}/>
             <figcaption><span>02</span> MAH ESTI by Shante</figcaption>
           </figure>
           <div className="brand-hero-seal"><Image src="/brand/mahlovely-logo-transparent.png" alt="MahLovely Studio" width={155} height={155}/></div>
