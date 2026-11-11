@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { getArtists,getServices } from '@/lib/catalog';
 import { db } from '@/lib/db';
 import { priceLabel,siteUrl } from '@/lib/site';
-import { allOriginalBrandUrls } from '@/lib/brand-media';
+import { allOriginalBrandUrls,excludedBrandUrls } from '@/lib/brand-media';
 import BrandPortfolio from '@/components/brand-portfolio';
 import GalleryMedia from '@/components/gallery-media';
 import ShanteLocPolicies from '@/components/shante-loc-policies';
@@ -28,7 +28,7 @@ export default async function ArtistDetail({params}:{params:Promise<{slug:string
   ]);
   const portraitDimensions=artist.photoUrl==='/brand/Titi/IMG_0550.JPG'?{width:1024,height:1820}:artist.photoUrl==='/brand/Ke/IMG_0549.PNG'?{width:1533,height:1024}:{width:600,height:700};
   const hasBrandPortfolio=slug==='shante'||slug==='christina';
-  const extraPortfolio=portfolio.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const extraPortfolio=portfolio.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||'')&&!excludedBrandUrls.has(item.imageUrl||item.videoUrl||''));
   return <>
     <section className="brand-artist-heading">
       <div className="container">
@@ -43,7 +43,7 @@ export default async function ArtistDetail({params}:{params:Promise<{slug:string
       </div>
     </section>
     {hasBrandPortfolio&&<section className="section brand-artist-work">
-      <div className="container">{slug==='shante'&&<div className="mah-profile-ribbon"><p className="eyebrow">MAH ESTI / Shante</p><h2>Esthetics, thoughtfully done.</h2><p>These images highlight Ke&apos;s skin and body-care work. Her dedicated loc portfolio is coming soon.</p><Link className="text-link" href="/mah-esti">See facials, body care &amp; packages ↗</Link></div>}<BrandPortfolio artistSlug={slug} mode="preview"/></div>
+      <div className="container">{slug==='shante'&&<div className="mah-profile-ribbon"><p className="eyebrow">MAH ESTI / Shante</p><h2>Esthetics, thoughtfully done.</h2><p>These images highlight Ke&apos;s skin and body-care work. Her real loc work is now featured in its own portfolio.</p><Link className="text-link" href="/mah-esti">See facials, body care &amp; packages ↗</Link></div>}<BrandPortfolio artistSlug={slug} mode="preview"/>{slug==='shante'&&<div className="mah-loc-profile"><div className="mah-profile-ribbon"><p className="eyebrow">Get Twisted / Loc artistry</p><h2>Real loc work by Shante.</h2><p>Explore the latest loc photos and videos, separately from MAH ESTI skincare.</p></div><BrandPortfolio artistSlug="shante-locs" mode="preview"/></div>}</div>
     </section>}
     {extraPortfolio.length>0&&<section className="section brand-artist-extra"><div className="container">
       <div className="section-heading"><div><p className="eyebrow">Latest from the studio</p><h2>More of the work.</h2></div></div>
