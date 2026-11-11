@@ -11,7 +11,7 @@ const photo=(folder:'Ke'|'Titi',filename:string,alt:string,caption:string,positi
   alt,caption,position
 });
 
-export const brandCollections:Record<'shante'|'christina',BrandCollection>={
+export const brandCollections:Record<'shante'|'christina'|'shante-locs',BrandCollection>={
   shante:{
     name:'Shante',discipline:'MAH ESTI · skin & body care',
     intro:'A closer look at MAH ESTI: skin and body care by Shante. Loc portfolio photography is coming soon.',
@@ -26,18 +26,38 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
       {src:`${keRoot}/Dolphin_Radar_20261111082844.mp4`,poster:optimized('Ke','Dolphin_Radar_20261111082842.png'),title:'MAH ESTI / 03'}
     ]
   },
+  'shante-locs':{
+    name:'Shante',discipline:'Loc artistry / Get Twisted',
+    intro:'The real work: loc care, retwists and finished styling from Ke’s portfolio.',
+    photos:[
+      photo('Ke','IMG_4751.JPG','Loc styling work from Shante','Loc artistry / featured'),
+      photo('Ke','IMG_2724.JPG','Loc work by Shante','The detail'),
+      photo('Ke','IMG_2725.JPG','Loc work by Shante','The finish'),
+      photo('Ke','IMG_2727.JPG','Loc work by Shante','Loc study / 01'),
+      photo('Ke','IMG_0104.JPG','Loc portfolio image by Shante','Loc study / 02'),
+      photo('Ke','IMG_0455.JPG','Loc portfolio image by Shante','Loc study / 03'),
+      photo('Ke','IMG_0757.JPG','Loc portfolio image by Shante','Loc study / 04'),
+      photo('Ke','IMG_2791.JPG','Loc portfolio image by Shante','Loc study / 05'),
+      photo('Ke','IMG_4106.JPG','Loc portfolio image by Shante','Loc study / 06'),
+      photo('Ke','IMG_9173.JPG','Loc portfolio image by Shante','Loc study / 07')
+    ],
+    films:[
+      {src:`${keRoot}/IMG_1755.mp4`,poster:optimized('Ke','IMG_4751.JPG'),title:'Loc artistry / 01'},
+      {src:`${keRoot}/709f1d7d31534881a26c4760c1a4415f.mp4`,poster:optimized('Ke','IMG_2724.JPG'),title:'Loc artistry / 02'},
+      {src:`${keRoot}/recorded-31849307613849.mp4`,poster:optimized('Ke','IMG_2725.JPG'),title:'Loc artistry / 03'}
+    ]
+  },
   christina:{
     name:'Cee',discipline:'Braiding & natural hair',
     intro:'Technique, texture, and a finish made to be seen.',
     photos:[
-      photo('Titi','IMG_1714.png','Braiding portfolio by Cee','The craft'),
-      photo('Titi','IMG_1718.png','Hair artistry by Cee','The detail'),
-      photo('Titi','IMG_1720.png','Finished style by Cee','The finish'),
-      photo('Titi','IMG_5393.png','Hair portfolio by Cee','Style study / 01'),
-      photo('Titi','IMG_5394.png','Hair portfolio by Cee','Style study / 02'),
-      photo('Titi','IMG_5395.png','Hair portfolio by Cee','Style study / 03'),
-      photo('Titi','IMG_5396.png','Hair portfolio by Cee','Style study / 04'),
-      photo('Titi','IMG_6519.png','Hair portfolio by Cee','Style study / 05')
+      photo('Titi','IMG_5395.png','Braided styling by Cee','The signature look'),
+      photo('Titi','IMG_6519.png','Braiding detail by Cee','The detail'),
+      photo('Titi','IMG_5396.png','Finished braided work by Cee','The finish'),
+      photo('Titi','IMG_1720.png','Braids by Cee','Style study / 01'),
+      photo('Titi','IMG_1718.png','Hair artistry by Cee','Style study / 02'),
+      photo('Titi','IMG_5393.png','Braids by Cee','Style study / 03'),
+      photo('Titi','IMG_5394.png','Hair portfolio by Cee','Style study / 04')
     ],
     films:[
       '11116604-C8BC-46E4-A638-46E23C1E9138.mp4',
@@ -56,6 +76,7 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
   }
 };
 
+// Cee explicitly requested that this image not appear on the website.\nexport const excludedBrandUrls=new Set(['/brand/Titi/IMG_1714.png']);
 export const allOriginalBrandUrls=new Set<string>(Object.values(brandCollections).flatMap(c=>[
   ...c.photos.map(p=>p.original),...c.films.map(f=>f.src)
 ]));
