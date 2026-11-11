@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import type { GalleryItem } from '@prisma/client';
-import VideoWithOwnPreview from '@/components/video-with-own-preview';
+import VideoWithOwnPreview from './video-with-own-preview';
 
 type GalleryMediaProps = Pick<GalleryItem, 'mediaType' | 'imageUrl' | 'videoUrl' | 'posterUrl' | 'width' | 'height' | 'altText'>;
 
