@@ -27,7 +27,7 @@ export const starterServices=[
 ];
 
 function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null;coverUrl?:string|null}>(artist:T):T{
-  const named=artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina'?{...artist,displayName:'Cee'}:artist;
+  const named=artist.slug==='christina'?{...artist,displayName:'Cee'}:artist;
   const brandNamed=artist.slug==='shante'?{...named,displayName:'Shante'}:named;
   const clean={...brandNamed,photoUrl:isRejectedBrandMedia(brandNamed.photoUrl)?null:brandNamed.photoUrl,coverUrl:isRejectedBrandMedia(brandNamed.coverUrl)?null:brandNamed.coverUrl,
     ...('bio' in artist&&typeof artist.bio==='string'?{bio:publicStudioCopy(artist.bio)}:{})};
