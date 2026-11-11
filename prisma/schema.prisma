@@ -498,3 +498,16 @@ model BookingSlotLock {
 
   @@index([appointmentId])
 }
+
+
+/// Sensitive consultation data is encrypted before being written to MongoDB.
+/// Never expose these fields via the general inquiries/clients CRM endpoints.
+model MahEstiIntake {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  encryptedPayload String
+  encryptedNotes   String?
+  status           String   @default("new")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  @@index([status, createdAt])
+}
