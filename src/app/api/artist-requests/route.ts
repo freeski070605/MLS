@@ -24,9 +24,9 @@ export async function POST(req:NextRequest){
     if(data.kind==='ke-consultation')return errorResponse('Please use the secure MAH ESTI facial consultation at /mah-esti#consultation',400);
     if(data.website)return NextResponse.json({ok:true});
     // A request is never an appointment or a confirmation of an available time.
-    const subject=data.kind==='ke-consultation'?'MAH ESTI consultation request — Shante':'Titi booking request — Cee';
+    const subject='Titi booking request — Cee';
     const message=[
-      `Artist: ${data.kind==='ke-consultation'?'Shante (Ke)':'Cee (Titi)'}`,
+      'Artist: Cee (Titi)',
       `Service of interest: ${data.service}`,
       data.date?`Preferred date: ${data.date}`:null,
       data.time?`Preferred time: ${data.time}`:null,
