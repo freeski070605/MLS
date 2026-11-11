@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import {currentUser} from '@/lib/auth';
 import {db} from '@/lib/db';
+import {staffCanViewIntakes} from '@/lib/staff-scope';
 import {decryptIntake,intakeReady} from '@/lib/mah-esti-security';
 
 export const dynamic='force-dynamic';
@@ -10,7 +11,7 @@ type Payload={answers:Record<string,string|string[]>;signedAt:string;kind?:'faci
 export default async function IntakeList(){
  const user=await currentUser();
  if(!user){return <div className="container section"><p>Please sign in to view private consultations. <Link href="/login">Sign in</Link></p></div>}
- if(!['OWNER','ADMIN','ARTIST'].includes(user.role)||user.role==='ARTIST'&&user.artist?.slug!=='shante')notFound();
+ if(!staffCanViewIntakes(user))notFound();
  if(!intakeReady())return <div className="container section"><h1>MAH ESTI intakes</h1><p>Confidential intake storage is not configured. Add MAH_ESTI_INTAKE_KEY to Vercel before accepting client records.</p></div>;
  const records=await db.mahEstiIntake.findMany({orderBy:{createdAt:'desc'},take:100});
  return <div className="container section"><div className="admin-toolbar"><div><p className="eyebrow">Private / authorized studio staff</p><h1>MAH ESTI intakes.</h1><p>Confidential consultation and skin analysis records. Showing the 100 newest submissions.</p></div><Link className="button button-outline" href="/admin">Admin dashboard</Link></div>
