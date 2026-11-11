@@ -2,10 +2,10 @@ import Link from 'next/link';
 import { shanteLocPolicySections } from '@/lib/shante-loc-policies';
 
 export default function ShanteLocPolicies({compact=false}:{compact?:boolean}){
- return <section className={'shante-policy-section'+(compact?' is-compact':'')} aria-labelledby={compact?'ke-policy-compact':'ke-policy-heading'}>
+ return <section className={'shante-policy-section'+(compact?' is-compact':'')} aria-labelledby={compact?'shante-policy-compact':'shante-policy-heading'}>
   <div className="shante-policy-heading">
    <p className="eyebrow">Get Twisted by Shante Pinklips</p>
-   <h2 id={compact?'ke-policy-compact':'ke-policy-heading'}>Before your loc appointment<span>.</span></h2>
+   <h2 id={compact?'shante-policy-compact':'shante-policy-heading'}>Before your loc appointment<span>.</span></h2>
    <p>Booking &amp; policies for Shante&apos;s loc services. Review these details before requesting a date.</p>
   </div>
   <div className="shante-policy-grid">{shanteLocPolicySections.map((section,index)=><article className="shante-policy-item" key={section.title}>
