@@ -38,23 +38,25 @@ export default async function ArtistDetail({params}:{params:Promise<{slug:string
     <section className="section brand-artist-story">
       <div className="container intro-grid">
         <div className="visual-panel brand-artist-portrait">{artist.photoUrl?<Image src={artist.photoUrl} alt={`${artist.displayName}, MahLovely artist`} width={portraitDimensions.width} height={portraitDimensions.height} sizes="(max-width: 760px) 100vw, 50vw" unoptimized={artist.photoUrl.startsWith('http')}/>:<span className="display" style={{fontSize:'8rem'}}>{artist.displayName.slice(0,1)}</span>}</div>
-        <div className="brand-artist-story-copy"><p className="eyebrow">The artist / {artist.displayName}</p><h2>Beauty with intention.</h2><p className="intro-copy">{artist.bio}</p><div className="rule"/><p className="eyebrow">Specialties</p><p>{artist.specialties.join(' · ')}</p><Link className="button button-dark" href={`/services?artist=${artist.slug}`}>Explore services ↗</Link></div>
+        <div className="brand-artist-story-copy"><p className="eyebrow">The artist / {artist.displayName}</p><h2>Beauty with intention.</h2><p className="intro-copy">{artist.bio}</p><div className="rule"/><p className="eyebrow">Specialties</p><p>{artist.specialties.join(' · ')}</p><Link className="button button-dark" href={slug==='shante'?'/mah-esti':'/titi-booking'}>{slug==='shante'?'Explore MAH ESTI ↗':'Book with Cee ↗'}</Link></div>
       </div>
     </section>
     {hasBrandPortfolio&&<section className="section brand-artist-work">
-      <div className="container"><BrandPortfolio artistSlug={slug} mode="preview"/></div>
+      <div className="container">{slug==='shante'&&<div className="mah-profile-ribbon"><p className="eyebrow">MAH ESTI / Shante</p><h2>Esthetics, thoughtfully done.</h2><p>These images highlight Ke&apos;s skin and body-care work. Her dedicated loc portfolio is coming soon.</p><Link className="text-link" href="/mah-esti">See facials, body care &amp; packages ↗</Link></div>}<BrandPortfolio artistSlug={slug} mode="preview"/></div>
     </section>}
     {extraPortfolio.length>0&&<section className="section brand-artist-extra"><div className="container">
       <div className="section-heading"><div><p className="eyebrow">Latest from the studio</p><h2>More of the work.</h2></div></div>
       <div className="gallery-grid">{extraPortfolio.map(item=><figure className="gallery-item" key={item.id}><GalleryMedia item={item}/><figcaption className="gallery-caption">{item.caption||item.altText}</figcaption></figure>)}</div>
     </div></section>}
-    <section className="section brand-artist-menu">
+    {slug==='shante'&&<section className="mah-profile-offerings"><div className="container mah-profile-offerings-inner"><div><p className="eyebrow">The MAH ESTI experience</p><h2>Facials. Body care. Spa rituals.</h2><p>Explore the complete MAH ESTI menu and start with a skin-focused consultation.</p></div><div><Link className="button button-dark" href="/mah-esti">View the MAH ESTI menu ↗</Link></div></div></section>}
+    {slug==='christina'&&<section className="mah-profile-offerings"><div className="container mah-profile-offerings-inner"><div><p className="eyebrow">Your next style</p><h2>Book your look with Cee.</h2><p>Send your style details and preferred date through Cee&apos;s dedicated appointment-request form.</p></div><div><Link className="button button-dark" href="/titi-booking">Request a Cee appointment ↗</Link></div></div></section>}
+        <section className="section brand-artist-menu">
       <div className="container"><div className="section-heading"><div><p className="eyebrow">The menu</p><h2>Services by {artist.displayName}.</h2></div><Link className="text-link" href={`/services?artist=${artist.slug}`}>Explore all ↗</Link></div>
       {services.length?<div className="service-grid">{services.map(s=><Link href={`/services/${s.slug}`} className="service-card" key={s.slug}>
         <p className="eyebrow">{s.category.name}</p><h3>{s.name}</h3><div className="card-bottom"><strong>{priceLabel(s)}</strong><span className="text-link">Details ↗</span></div>
       </Link>)}</div>:<div className="empty-state"><p>{artist.displayName}&apos;s service menu is being prepared.</p><Link className="button button-outline" href="/contact">Get in touch</Link></div>}
       </div>
     </section>
-    <section className="cta-band brand-closing"><p className="eyebrow">Your next visit</p><h2>Come through. Leave lovely.</h2><Link className="button button-light" href="/book">Book an appointment ↗</Link></section>
+    <section className="cta-band brand-closing"><p className="eyebrow">Your next visit</p><h2>Come through. Leave lovely.</h2><Link className="button button-light" href={slug==='shante'?'/mah-esti#consultation':'/titi-booking'}>{slug==='shante'?'Request a consultation ↗':'Book with Cee ↗'}</Link></section>
   </>;
 }
