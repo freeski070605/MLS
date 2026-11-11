@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
+import { brandCollections } from '@/lib/brand-media';
 import { mahSections,mahPrice } from '@/lib/mah-esti';
 import ArtistRequestForm from '@/components/artist-request-form';
 
-export const metadata:Metadata={title:'MAH ESTI | Facials, Body Care & Spa Experiences',description:'Explore MAH ESTI by Shante: seven custom facials, body treatments, signature spa packages, and thoughtful add-ons.'};
+export const metadata:Metadata={title:'MAH ESTI | Facials, Body Care & Spa Experiences',description:'Explore MAH ESTI by Shante: seven custom facials, five body treatments, and six signature spa packages.'};
 
 export default async function MahEsti({searchParams}:{searchParams:Promise<{service?:string}>}){
  const {service}=await searchParams;
  const all=mahSections.flatMap(s=>s.items);
  const initial=all.find(item=>item.slug===service)?.name;
+ const edit=brandCollections.shante;
  return <>
   <section className="mah-hero"><div className="container mah-hero-content">
     <div className="mah-monogram">MAH <span>ESTI</span></div>
@@ -22,6 +25,23 @@ export default async function MahEsti({searchParams}:{searchParams:Promise<{serv
     <span>01 — THE PHILOSOPHY</span><h2>Your skin. <em>Your kind of glow.</em></h2>
     <p>MAH ESTI is built around seven core facials, five body treatments and six signature experiences. Your consultation shapes the products and techniques used for your unique skin, whether you want hydration, clarity, calm or a little time for yourself.</p>
   </div></section>
+  <section className="mah-editorial-story">
+    <div className="container mah-editorial-layout">
+      <figure className="mah-editorial-photo mah-editorial-photo-main">
+        <Image src={edit.photos[0].src} alt={edit.photos[0].alt} fill sizes="(max-width: 760px) 90vw, 45vw" className="brand-image"/>
+        <figcaption>01 / The MAH ESTI touch</figcaption>
+      </figure>
+      <div className="mah-editorial-copy">
+        <p className="eyebrow">The ritual / the reveal</p>
+        <h2>Skincare that <em>feels personal.</em></h2>
+        <p>From the first conversation to the final finishing touch, the treatment is built around your skin and the way you want to feel.</p>
+        <div className="mah-editorial-photo mah-editorial-photo-detail">
+          <Image src={edit.photos[2].src} alt={edit.photos[2].alt} fill sizes="(max-width: 760px) 75vw, 25vw" className="brand-image"/>
+        </div>
+        <Link className="text-link" href="/gallery?category=esthetics">See the MAH ESTI lookbook ↗</Link>
+      </div>
+    </div>
+  </section>
   <div id="mah-menu">
     {mahSections.map((section,index)=><section id={section.id} className={'mah-menu-section mah-menu-'+section.id} key={section.id}>
       <div className="container"><header className="mah-section-head">
