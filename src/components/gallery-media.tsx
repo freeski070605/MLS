@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import type { GalleryItem } from '@prisma/client';
+import VideoWithOwnPreview from '@/components/video-with-own-preview';
 
 type GalleryMediaProps = Pick<GalleryItem, 'mediaType' | 'imageUrl' | 'videoUrl' | 'posterUrl' | 'width' | 'height' | 'altText'>;
 
@@ -12,18 +13,7 @@ export default function GalleryMedia({ item }: { item: GalleryMediaProps }) {
   return (
     <div className="gallery-media" style={{ aspectRatio }}>
       {item.mediaType === 'VIDEO' && item.videoUrl ? (
-        <video
-          aria-label={item.altText}
-          controls
-          playsInline
-          preload="none"
-          poster={item.posterUrl || undefined}
-          width={width}
-          height={height}
-        >
-          <source src={item.videoUrl} type="video/mp4" />
-          Your browser does not support video playback.
-        </video>
+        <VideoWithOwnPreview src={item.videoUrl} title={item.altText} width={width} height={height}/>
       ) : item.imageUrl ? (
         <Image
           src={item.imageUrl}
