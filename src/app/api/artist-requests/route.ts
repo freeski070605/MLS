@@ -21,6 +21,7 @@ export async function POST(req:NextRequest){
   try{
     if(!await limit(req,'artist-request',5,60))return errorResponse('Too many requests. Please try again later.',429);
     const data=schema.parse(await req.json());
+    if(data.kind==='ke-consultation')return errorResponse('Please use the secure MAH ESTI facial consultation at /mah-esti#consultation',400);
     if(data.website)return NextResponse.json({ok:true});
     // A request is never an appointment or a confirmation of an available time.
     const subject=data.kind==='ke-consultation'?'MAH ESTI consultation request — Shante':'Titi booking request — Cee';
