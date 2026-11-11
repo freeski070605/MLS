@@ -3,8 +3,9 @@ import {z} from 'zod';
 import {currentUser} from '@/lib/auth';
 import {db} from '@/lib/db';
 import {safeOrigin,limit,errorResponse} from '@/lib/http';
-import {encryptIntake,intakeReady} from '@/lib/mah-esti-security';
+import {encryptIntake,decryptIntake,intakeReady} from '@/lib/mah-esti-security';
 import {estheticianFields} from '@/lib/mah-esti-intake';
+import {waxingEstheticianFields} from '@/lib/mah-esti-waxing';
 
 export const runtime='nodejs';
 const schema=z.object({
@@ -21,7 +22,10 @@ export async function POST(req:NextRequest){
   if(!await limit(req,'mah-esti-staff',20,60))return errorResponse('Please try again later',429);
   const raw=await req.text();if(raw.length>25000)return errorResponse('Notes too long',413);
   const data=schema.parse(JSON.parse(raw));
-  const allowed=new Set(estheticianFields.map(f=>f.key));
+  const record=await db.mahEstiIntake.findUnique({where:{id:data.id},select:{encryptedPayload:true}});
+  if(!record)return errorResponse('Record not found',404);
+  const payload=decryptIntake<{kind?:string}>(record.encryptedPayload);
+  const allowed=new Set((payload.kind==='waxing'?waxingEstheticianFields:estheticianFields).map(f=>f.key));
   if(Object.keys(data.notes).some(k=>!allowed.has(k)))return errorResponse('Invalid notes',400);
   await db.mahEstiIntake.update({where:{id:data.id},data:{encryptedNotes:encryptIntake({notes:data.notes,updatedBy:user.id,updatedAt:new Date().toISOString()}),status:data.status}});
   return NextResponse.json({ok:true});
