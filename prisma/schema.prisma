@@ -408,6 +408,7 @@ model ContentBlock {
 }
 
 model Inquiry {
+  artistId  String?  @db.ObjectId
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String
@@ -418,6 +419,7 @@ model Inquiry {
   createdAt DateTime @default(now())
 
   @@index([status, createdAt])
+  @@index([artistId, createdAt])
 }
 
 model NotificationTemplate {
