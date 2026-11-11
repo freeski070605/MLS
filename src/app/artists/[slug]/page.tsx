@@ -8,6 +8,7 @@ import { priceLabel,siteUrl } from '@/lib/site';
 import { allOriginalBrandUrls } from '@/lib/brand-media';
 import BrandPortfolio from '@/components/brand-portfolio';
 import GalleryMedia from '@/components/gallery-media';
+import ShanteLocPolicies from '@/components/shante-loc-policies';
 
 export const dynamic='force-dynamic';
 export const revalidate=0;
@@ -57,6 +58,7 @@ export default async function ArtistDetail({params}:{params:Promise<{slug:string
       </Link>)}</div>:<div className="empty-state"><p>{artist.displayName}&apos;s service menu is being prepared.</p><Link className="button button-outline" href="/contact">Get in touch</Link></div>}
       </div>
     </section>
+    {slug==='shante'&&<section className="section shante-policy-profile"><div className="container"><ShanteLocPolicies compact/></div></section>}
     <section className="cta-band brand-closing"><p className="eyebrow">Your next visit</p><h2>Come through. Leave lovely.</h2><Link className="button button-light" href={slug==='shante'?'/mah-esti#consultation':'/titi-booking'}>{slug==='shante'?'Request a consultation ↗':'Book with Cee ↗'}</Link></section>
   </>;
 }
