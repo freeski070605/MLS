@@ -1,13 +1,8 @@
 import { db } from './db';
 
 export const starterArtists=[
-<<<<<<< HEAD
   {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:'/brand/Ke/IMG_0549.PNG',coverUrl:null,specialties:['Locs','Esthetics']},
   {id:'christina',slug:'christina',displayName:'Cee',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:'/brand/Titi/IMG_0550.JPG',coverUrl:null,specialties:['Braids','Natural Hair']}
-=======
-  {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:null,coverUrl:null,specialties:['Locs','Esthetics']},
-  {id:'christina',slug:'christina',displayName:'Cee',roleLabels:['Natural Hair Stylist','Braider'],bio:'Natural hair care, protective styling and finished looks designed around your hair and the look you want.',photoUrl:null,coverUrl:null,specialties:['Braids','Natural Hair']}
->>>>>>> 905bc683d96eb503d4d89787e770af45cca65c5a
 ];
 
 export const starterCategories=[
