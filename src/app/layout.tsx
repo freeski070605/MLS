@@ -30,7 +30,7 @@ export default async function RootLayout({children}:{children:React.ReactNode}){
               <nav aria-label="Mobile navigation">
                 {mainNav.filter(item => item.href.startsWith('/')).map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}
                 <Link href="/faq">FAQ</Link>
-                <Link href="/titi-booking">Book with Cee</Link>
+                <Link href="/cee-booking">Book with Cee</Link>
                 <Link href="/book">Book now</Link>
               </nav>
               <Link className="button button-dark header-book" href="/book">Book now <span aria-hidden="true">↗</span></Link>
@@ -53,7 +53,7 @@ export default async function RootLayout({children}:{children:React.ReactNode}){
               <Link href="/artists">Artists</Link>
               <Link href="/gallery">Gallery</Link>
               <Link href="/mah-esti">MAH ESTI</Link>
-              <Link href="/titi-booking">Book with Cee</Link>
+              <Link href="/cee-booking">Book with Cee</Link>
               <Link href="/about">About</Link>
               <Link href="/appointment-prep">Appointment prep</Link>
             </div>
