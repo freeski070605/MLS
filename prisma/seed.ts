@@ -47,7 +47,6 @@ async function main(){
     {slug:'trim',name:'Trim',category:'natural-hair',priceType:'VARIES',order:8}
   ];
   for(const s of serviceData){ const category=await db.category.findUniqueOrThrow({where:{slug:s.category}}); await db.service.upsert({where:{slug:s.slug},create:{slug:s.slug,name:s.name,categoryId:category.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order,featured:s.order<5,bookingEnabled:false,artists:{create:{artistId:christina.id}}},update:{}}); }
-<<<<<<< HEAD
   const braids=await db.category.findUniqueOrThrow({where:{slug:'braids'}});
   const seedGalleryItem=async (key:string,data:Parameters<typeof db.galleryItem.create>[0]['data'])=>{
     const tag=`${ARTIST_MEDIA_SEED_TAG}:${key}`;
@@ -85,7 +84,6 @@ async function main(){
       displayOrder:ceePortfolioPhotos.length+index
     });
   }
-=======
 
   const locCategory=await db.category.findUniqueOrThrow({where:{slug:'locs'}});
   const locServices:{slug:string;name:string;priceType:PriceType;priceMin?:number;priceMax?:number;description?:string;order:number}[]=[
@@ -109,7 +107,6 @@ async function main(){
     await db.service.upsert({where:{slug:s.slug},create:{slug:s.slug,name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order,featured:['retwist-short','starter-locs','loc-styles','full-head-color-no-bleach'].includes(s.slug),bookingEnabled:false,artists:{create:{artistId:shante.id}}},update:{name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order}});
   }
 
->>>>>>> 905bc683d96eb503d4d89787e770af45cca65c5a
   const blocks=[
     ['home.hero.eyebrow','MAHLOVELY STUDIO'],['home.hero.title','Your Hair. Your Skin. Your Crown.'],['home.hero.body','Natural Hair · Braids · Locs · Esthetics'],['home.intro.title','Two artists. One lovely experience.'],['home.intro.body','Professional hair care, protective styling, loc artistry, and esthetic care come together under one studio brand.'],['about.intro','MahLovely Studio brings two artists together around healthy hair, beauty, confidence, and intentional self-care. Every visit begins with you.']
   ];
