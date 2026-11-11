@@ -463,3 +463,8 @@ a:hover .brand-image{transform:scale(1.035)}
 .shante-booking-confirm-policies{background:#f2e7d9;border:1px solid #c7ad8f;padding:25px}
 .shante-booking-confirm-policies h3{font:400 1.9rem var(--serif);margin:0 0 18px}
 .shante-booking-confirm-policies p{font-size:.91rem;line-height:1.7;margin:8px 0}
+
+
+/* Video thumbnails are sampled from their own MP4s, not unrelated photos. */
+.video-own-preview{width:100%;height:100%;position:relative;overflow:hidden;background:#1c1916}
+.video-own-preview video{display:block;width:100%;height:100%;object-fit:cover}
