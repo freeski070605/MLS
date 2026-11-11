@@ -412,3 +412,26 @@ a:hover .brand-image{transform:scale(1.035)}
 .mah-booking-path p:not(.eyebrow){max-width:480px;color:#e7d8c8}
 .mah-booking-path .text-link{color:#fff;margin-top:auto}
 @media(max-width:760px){.mah-booking-paths-grid{grid-template-columns:1fr}.mah-booking-path{min-height:250px;padding:30px}}
+
+
+/* MAH ESTI photography belongs to esthetics, not the loc portfolio. */
+.mah-editorial-story{background:#f3e9df;padding:clamp(75px,10vw,135px) 0}
+.mah-editorial-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,6vw,100px);align-items:center}
+.mah-editorial-photo{position:relative;background:#c6b7aa;overflow:hidden;margin:0}
+.mah-editorial-photo-main{height:clamp(400px,54vw,720px)}
+.mah-editorial-photo-main:after{content:'';position:absolute;inset:70% 0 0;background:linear-gradient(transparent,#1b1512a0)}
+.mah-editorial-photo-main figcaption{position:absolute;left:25px;bottom:25px;z-index:2;color:#fff;text-transform:uppercase;font-size:.7rem;letter-spacing:.16em;font-weight:700}
+.mah-editorial-copy .eyebrow{margin-bottom:25px}
+.mah-editorial-copy h2{font-size:clamp(2.9rem,4.8vw,5.6rem)}
+.mah-editorial-copy h2 em{font-weight:400;color:#946b51}
+.mah-editorial-copy>p:not(.eyebrow){font-size:1.05rem;line-height:1.8;color:#62554c;max-width:440px}
+.mah-editorial-photo-detail{width:65%;height:230px;margin:35px 0 28px 18%}
+.mah-admin-sync{max-width:360px}
+.mah-admin-sync .button{white-space:normal;text-align:center}
+.mah-admin-sync p{margin:8px 0 0;font-size:.75rem;line-height:1.5}
+@media(max-width:760px){
+  .mah-editorial-layout{grid-template-columns:1fr}
+  .mah-editorial-photo-main{height:490px}
+  .mah-editorial-photo-detail{height:200px;margin-left:auto;margin-right:0}
+}
+@media(max-width:480px){.mah-editorial-photo-main{height:380px}.mah-editorial-photo-detail{height:165px}}
