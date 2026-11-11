@@ -24,9 +24,9 @@ export async function POST(req:NextRequest){
     if(data.kind==='ke-consultation')return errorResponse('Please use the secure MAH ESTI facial consultation at /mah-esti#consultation',400);
     if(data.website)return NextResponse.json({ok:true});
     // A request is never an appointment or a confirmation of an available time.
-    const subject='Titi booking request — Cee';
+    const subject='Cee booking request';
     const message=[
-      'Artist: Cee (Titi)',
+      'Artist: Cee',
       `Service of interest: ${data.service}`,
       data.date?`Preferred date: ${data.date}`:null,
       data.time?`Preferred time: ${data.time}`:null,
@@ -34,7 +34,9 @@ export async function POST(req:NextRequest){
       data.notes?`Other details: ${data.notes}`:null,
       'Status: Request only — no appointment has been confirmed.'
     ].filter(Boolean).join('\n');
-    await db.inquiry.create({data:{name:data.name,email:data.email,phone:data.phone||null,subject,message}});
+    const artist=await db.artist.findFirst({where:{slug:'christina'},select:{id:true}});
+    if(!artist)return errorResponse('Cee’s booking inbox is not configured',503);
+    await db.inquiry.create({data:{artistId:artist.id,name:data.name,email:data.email,phone:data.phone||null,subject,message}});
     return NextResponse.json({ok:true});
   }catch(e){
     return errorResponse(e,e instanceof z.ZodError?400:503);
