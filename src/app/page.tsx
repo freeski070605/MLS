@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import GalleryMedia from '@/components/gallery-media';
 import { getArtists,getCategories,getServices } from '@/lib/catalog';
-import { brandCollections,allOriginalBrandUrls } from '@/lib/brand-media';
+import { brandCollections,allOriginalBrandUrls,excludedBrandUrls } from '@/lib/brand-media';
 import { content,priceLabel,setting } from '@/lib/site';
 import { db } from '@/lib/db';
 
@@ -25,7 +25,7 @@ export default async function Home(){
     db.testimonial.findMany({where:{status:'PUBLISHED',featured:true},take:3,orderBy:{createdAt:'desc'}}),
     db.socialPost.findMany({where:{published:true,featured:true},take:4,orderBy:{displayOrder:'asc'}})
   ]);}catch{}
-  const studioUpdates=gallery.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||''));
+  const studioUpdates=gallery.filter(item=>!allOriginalBrandUrls.has(item.imageUrl||item.videoUrl||'')&&!excludedBrandUrls.has(item.imageUrl||item.videoUrl||''));
   const cee=brandCollections.christina;
   const shante=brandCollections.shante;
   return <>
