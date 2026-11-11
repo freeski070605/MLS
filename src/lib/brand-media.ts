@@ -40,7 +40,7 @@ export const brandCollections:Record<'shante'|'christina',BrandCollection>={
     name:'Cee',discipline:'Braiding & natural hair',intro:'Distinct braid patterns, clean parts, and finished looks from Cee’s chair.',
     photos:[
       ceeHeroPhoto,
-      photo('Titi','IMG_1718.png','Long finished braids seen from behind','Length and detail','center 43%'),
+      photo('Titi','IMG_5395.png','Braided style from Cee’s portfolio','Style detail','center 43%'),
       ceeBookingPhoto,
     ],
     films:[
