@@ -1,6 +1,7 @@
 import { artistHeadshots } from '../../prisma/artist-media';
 import { db } from './db';
 import { isRejectedBrandMedia } from './brand-media';
+import { publicStudioCopy,publicStudioOptional } from './public-names';
 
 export const starterArtists=[
   {id:'shante',slug:'shante',displayName:'Shante',roleLabels:['Loc Artist','Esthetician'],bio:'Healthy locs meet intentional skincare and self-care. Loc artistry and esthetic services come together within a personalized beauty experience.',photoUrl:'/brand/Ke/IMG_0549.PNG',coverUrl:null,specialties:['Locs','Esthetics']},
@@ -27,7 +28,9 @@ export const starterServices=[
 
 function publicArtist<T extends {slug:string;displayName:string;photoUrl?:string|null;coverUrl?:string|null}>(artist:T):T{
   const named=artist.slug==='christina'&&artist.displayName.trim().toLowerCase()==='christina'?{...artist,displayName:'Cee'}:artist;
-  const clean={...named,photoUrl:isRejectedBrandMedia(named.photoUrl)?null:named.photoUrl,coverUrl:isRejectedBrandMedia(named.coverUrl)?null:named.coverUrl};
+  const brandNamed=artist.slug==='shante'?{...named,displayName:'Shante'}:named;
+  const clean={...brandNamed,photoUrl:isRejectedBrandMedia(brandNamed.photoUrl)?null:brandNamed.photoUrl,coverUrl:isRejectedBrandMedia(brandNamed.coverUrl)?null:brandNamed.coverUrl,
+    ...('bio' in artist&&typeof artist.bio==='string'?{bio:publicStudioCopy(artist.bio)}:{})};
   if(!clean.photoUrl){const headshot=artistHeadshots.find(item=>item.artistSlug===clean.slug);if(headshot)return {...clean,photoUrl:headshot.imageUrl};}
   return clean;
 }
@@ -64,7 +67,7 @@ export async function getArtists(){
 export async function getCategories(){
   try{
     const rows=await db.category.findMany({where:{active:true},orderBy:{displayOrder:'asc'}});
-    if(rows.length)return rows;
+    if(rows.length)return rows.map(row=>({...row,description:publicStudioOptional(row.description)}));
     const total=await db.category.count();
     return total===0?starterCategories:rows;
   }catch{
@@ -75,7 +78,11 @@ export async function getCategories(){
 export async function getServices(){
   try{
     const rows=await db.service.findMany({where:{active:true},include:{category:true,artists:{include:{artist:true}}},orderBy:{displayOrder:'asc'}});
-    if(rows.length)return rows.map(service=>({...service,imageUrl:isRejectedBrandMedia(service.imageUrl)?null:service.imageUrl,artists:service.artists.map(link=>({...link,artist:publicArtist(link.artist)}))}));
+    if(rows.length)return rows.map(service=>({...service,
+      name:publicStudioCopy(service.name),shortDescription:publicStudioOptional(service.shortDescription),description:publicStudioOptional(service.description),
+      preparation:publicStudioOptional(service.preparation),aftercare:publicStudioOptional(service.aftercare),
+      category:{...service.category,description:publicStudioOptional(service.category.description)},
+      imageUrl:isRejectedBrandMedia(service.imageUrl)?null:service.imageUrl,artists:service.artists.map(link=>({...link,artist:publicArtist(link.artist)}))}));
     const total=await db.service.count();
     return total===0?starterServiceRows():rows;
   }catch{
