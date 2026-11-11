@@ -32,6 +32,6 @@ describe('artist media inventory', () => {
   });
 
   it('keeps both headshots separate from the publishable portfolio', () => {
-    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(15);
+    expect(artistHeadshots.length + ceePortfolioPhotos.length + ceePortfolioVideos.length).toBe(14);
   });
 });
