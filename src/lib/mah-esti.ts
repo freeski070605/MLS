@@ -26,13 +26,5 @@ export const mahSections:MahSection[]=[
   {slug:'mah-me-time-experience',name:'MAH Me-Time Experience',price:185,description:'For the client who needs to lie down, relax, and be pampered.',details:['Custom Facial','Extended facial/scalp massage','Hand/arm massage','Lip treatment','Relaxing aromatherapy element','MAH ESTI refreshment']}
  ]}
 ];
-export const mahAddons=[
- ['LED Light Therapy',25],['High Frequency',20],['Hydrojelly/Specialty Mask Upgrade',20],
- ['Extended Extractions',20],['Lip Treatment',15],['Eye Treatment',15],
- ['Scalp Massage',15],['Extended Facial Massage',20],['Hand + Arm Massage',15],
- ['Décolleté Treatment',25],['Brightening Booster',20],['Hydration Booster',20],
- ['Acne/Clarifying Booster',20],['Ingrown-Hair Treatment',20],
- ['Mini Underarm Brightening',30],['Mini Inner-Thigh Brightening',40]
-] as const;
 export const allMahServices=mahSections.flatMap(section=>section.items.map(item=>({...item,section:section.id})));
 export const mahPrice=(price:number)=>`$${price}`;
