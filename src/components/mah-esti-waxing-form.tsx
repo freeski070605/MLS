@@ -5,7 +5,7 @@ import {Question} from '@/components/mah-esti-intake-form';
 import {waxingSections,waxingAcknowledgments,waxingConsent,waxingClearanceText} from '@/lib/mah-esti-waxing';
 
 type Answers=Record<string,string|string[]>;
-const steps=7; // six client sections and one treatment clearance / acknowledgment step
+const steps=7; // Sections 01–05, 06 safety consent, then 07 comfort
 export default function MahEstiWaxingForm({configured}:{configured:boolean}){
  const [step,setStep]=useState(0);
  const [answers,setAnswers]=useState<Answers>({appointmentDate:new Date().toISOString().slice(0,10)});
@@ -13,7 +13,7 @@ export default function MahEstiWaxingForm({configured}:{configured:boolean}){
  const [signature,setSignature]=useState('');
  const [accepted,setAccepted]=useState(false);
  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[receipt,setReceipt]=useState('');
- const section=waxingSections[step];
+ const section=step===6?waxingSections[5]:step===5?undefined:waxingSections[step];
  const update=(key:string,value:string|string[])=>setAnswers(prev=>({...prev,[key]:value}));
  function next(){
   setError('');
@@ -26,6 +26,7 @@ export default function MahEstiWaxingForm({configured}:{configured:boolean}){
     setError('Please explain the health concern so Ke can review it safely. Do not wait for this consultation if you need urgent medical care.');return
    }
   }
+  if(step===5&&(!ack.every(Boolean)||!accepted||signature.trim().length<2)){setError('Please confirm all safety statements, accept the consent and sign with your full name.');return}
   setStep(n=>Math.min(n+1,steps-1));
  }
  async function submit(){
