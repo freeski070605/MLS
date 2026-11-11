@@ -1,5 +1,6 @@
 import { PrismaClient, PriceType } from '@prisma/client';
 import { hash } from 'bcryptjs';
+import { mahSections, mahAddons } from '../src/lib/mah-esti';
 import { artistRenamePatch,legacyArtistProfiles,type LegacyArtistProfile } from './artist-names';
 import { ARTIST_MEDIA_SEED_TAG,artistHeadshots,ceePortfolioPhotos,ceePortfolioVideos } from './artist-media';
 const db=new PrismaClient();
@@ -105,6 +106,39 @@ async function main(){
   ];
   for(const s of locServices){
     await db.service.upsert({where:{slug:s.slug},create:{slug:s.slug,name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order,featured:['retwist-short','starter-locs','loc-styles','full-head-color-no-bleach'].includes(s.slug),bookingEnabled:false,artists:{create:{artistId:shante.id}}},update:{name:s.name,categoryId:locCategory.id,priceType:s.priceType,priceMin:s.priceMin,priceMax:s.priceMax,shortDescription:s.description,description:s.description,displayOrder:s.order}});
+  }
+
+
+  // MAH ESTI services: idempotent seed. Preserve all existing admin edits.
+  const estheticsCategory=await db.category.findUniqueOrThrow({where:{slug:'esthetics'}});
+  for(const section of mahSections){
+    for(const [index,item] of section.items.entries()){
+      const stored=await db.service.upsert({
+        where:{slug:item.slug},
+        create:{
+          slug:item.slug,name:item.name,categoryId:estheticsCategory.id,
+          priceType:'FIXED',priceMin:item.price*100,
+          shortDescription:item.description,
+          description:[item.description,...(item.details||[])].join('\n'),
+          displayOrder:50+mahSections.findIndex(group=>group.id===section.id)*20+index,
+          tags:['MAH ESTI',section.id],featured:!!item.featured,
+          bookingEnabled:false,
+          artists:{create:{artistId:shante.id}}
+        },
+        update:{}
+      });
+      // If this is a pre-existing service, only add the missing Shante link.
+      await db.serviceArtist.upsert({
+        where:{serviceId_artistId:{serviceId:stored.id,artistId:shante.id}},
+        create:{serviceId:stored.id,artistId:shante.id},update:{}
+      });
+      if(section.id==='facials'||section.id==='body'){
+        for(const [position,[name,price]] of mahAddons.entries()){
+          const exists=await db.serviceOption.findFirst({where:{serviceId:stored.id,name}});
+          if(!exists)await db.serviceOption.create({data:{serviceId:stored.id,name,priceDelta:price*100,displayOrder:position,required:false,active:true}});
+        }
+      }
+    }
   }
 
   const blocks=[
