@@ -16,7 +16,7 @@ Individual sampled frames and HEIC inspection conversions are in `media-review/`
 | Rank | Artist | Source | Why it leads | Best placement |
 | --- | --- | --- | --- | --- |
 | 1 | Cee | `IMG_6519.png` | Distinct radial braid pattern chosen by the owner | Homepage hero; Cee portfolio lead |
-| 2 | Cee | `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` at 10.3s | Finished braided bun, clear technique, simple background | Booking hero; lookbook detail |
+| 2 | Cee | `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` at 10.3s | finished braided ponytail, clear technique, simple background | Booking hero; lookbook detail |
 | 3 | Cee | `IMG_5395.png` | Length visible from behind | Services, About, full lookbook |
 | 1 | Ke locs | `IMG_9173.JPG` | Clean updo and clearly visible parting | GET TWISTED lead; loc services |
 | 2 | Ke locs | `IMG_0455.JPG` | Strong copper color and complete style | Loc lookbook |
@@ -50,7 +50,7 @@ Individual sampled frames and HEIC inspection conversions are in `media-review/`
 | Ke esthetics | `Dolphin_Radar_20261111082840.mp4` | 9.3s treatment process | Selected original for MAH ESTI only |
 | Ke esthetics | `Dolphin_Radar_20261111082844.mp4` | 7.3s treatment process | Dark opening and similar story; omitted |
 | Cee | `11116604-C8BC-46E4-A638-46E23C1E9138.mp4` | 10.8s finished pattern | Retired from public use with the earlier homepage still |
-| Cee | `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` | 10.3s finished beaded bun | Selected original; real frame is the booking still and video poster |
+| Cee | `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` | 10.3s finished beaded ponytail | Selected original; real frame is the booking still and video poster |
 | Cee | `BC3ED02A-588C-4C69-8718-9950689904D5.mp4` | 7.5s radial pattern | Selected original for lookbook |
 | Cee | `370CAC18-0C44-4CE3-9EEB-71AC5FF2BE55.mp4` | 13.6s parting view | Technique visible but red outfit and close crop compete; omitted |
 | Cee | `3BE97116-CC8E-4546-A9B0-7068D1A9C021.mp4` | 10.7s close braid view | Very tight framing; omitted |
@@ -64,7 +64,7 @@ The Cee booking still and its matching video poster are the same real frame. Vid
 
 - Homepage: owner selected Cee `IMG_6519.png`, Ke MAH ESTI facial, separate loc service card, Cee and Ke process videos, three discipline specific lookbook tiles.
 - Artists directory and profiles: original headshots stay in place; Cee braid imagery supports the directory; Shante profile shows GET TWISTED followed by MAH ESTI.
-- Cee booking: the real beaded bun video frame, with a crop that preserves the braid pattern.
+- Cee booking: the real beaded ponytail video frame, with a crop that preserves the braid pattern.
 - Services: image follows the selected category: locs, braids, or esthetics.
 - Gallery: three separate sections for MAH ESTI, GET TWISTED, and Cee. Existing owner uploaded gallery records remain available.
 - MAH ESTI and About: esthetics imagery stays within skin and body care context.
