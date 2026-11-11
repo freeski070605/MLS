@@ -49,7 +49,7 @@ export default async function Home(){
             <figcaption><span>01</span> Braids by Cee</figcaption>
           </figure>
           <figure className="brand-hero-image brand-hero-image-side">
-            <Image src={shante.photos[0].src} alt={shante.photos[0].alt} fill priority sizes="(max-width: 760px) 44vw, 20vw" className="brand-image" style={{objectPosition:shante.photos[0].position}}/>
+            <Image src={shante.photos[1].src} alt={shante.photos[1].alt} fill priority sizes="(max-width: 760px) 44vw, 20vw" className="brand-image" style={{objectPosition:"center 42%"}}/>
             <figcaption><span>02</span> MAH ESTI by Shante</figcaption>
           </figure>
           <div className="brand-hero-seal"><Image src="/brand/mahlovely-logo-transparent.png" alt="MahLovely Studio" width={155} height={155}/></div>
