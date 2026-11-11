@@ -2,6 +2,7 @@ import {NextRequest,NextResponse} from 'next/server';
 import {z} from 'zod';
 import {currentUser} from '@/lib/auth';
 import {db} from '@/lib/db';
+import {staffCanViewIntakes} from '@/lib/staff-scope';
 import {safeOrigin,limit,errorResponse} from '@/lib/http';
 import {encryptIntake,decryptIntake,intakeReady} from '@/lib/mah-esti-security';
 import {estheticianFields} from '@/lib/mah-esti-intake';
@@ -16,7 +17,7 @@ const schema=z.object({
 export async function POST(req:NextRequest){
  if(!safeOrigin(req))return errorResponse('Invalid origin',403);
  const user=await currentUser();
- if(!user||!['OWNER','ADMIN','ARTIST'].includes(user.role)||user.role==='ARTIST'&&user.artist?.slug!=='shante')return errorResponse('Forbidden',403);
+ if(!user||!staffCanViewIntakes(user))return errorResponse('Forbidden',403);
  if(!intakeReady())return errorResponse('Secure intake encryption is not configured',503);
  try{
   if(!await limit(req,'mah-esti-staff',20,60))return errorResponse('Please try again later',429);
