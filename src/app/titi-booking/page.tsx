@@ -5,7 +5,7 @@ import ArtistRequestForm from '@/components/artist-request-form';
 import { getServices } from '@/lib/catalog';
 import { brandCollections } from '@/lib/brand-media';
 
-export const metadata:Metadata={title:'Book with Cee | Braids & Natural Hair',description:'Send Titi / Cee your preferred braiding or natural-hair service and appointment details.'};
+export const metadata:Metadata={title:'Book with Cee | Braids & Natural Hair',description:'Send Cee your preferred braiding or natural-hair service and appointment details.'};
 export const dynamic='force-dynamic';
 
 export default async function TitiBooking(){
