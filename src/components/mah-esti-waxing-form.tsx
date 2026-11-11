@@ -23,7 +23,7 @@ export default function MahEstiWaxingForm({configured}:{configured:boolean}){
     if(!value||(Array.isArray(value)?value.length===0:!value.trim())){setError('Please complete: '+f.label);return}
    }
    if(step===4&&answers.urgentConcern==='Yes'&&!String(answers.urgentConcernDetails||'').trim()){
-    setError('Please explain the health concern so Ke can review it safely. Do not wait for this consultation if you need urgent medical care.');return
+    setError('Please explain the health concern so Shante can review it safely. Do not wait for this consultation if you need urgent medical care.');return
    }
   }
   if(step===5&&(!ack.every(Boolean)||!accepted||signature.trim().length<2)){setError('Please confirm all safety statements, accept the consent and sign with your full name.');return}
