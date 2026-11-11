@@ -17,9 +17,9 @@ describe('artist media inventory', () => {
   });
 
   it('lists every publishable Cee portfolio image and video once', () => {
-    expect(ceePortfolioPhotos).toHaveLength(6);
+    expect(ceePortfolioPhotos).toHaveLength(5);
     expect(ceePortfolioVideos).toHaveLength(7);
-    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(6);
+    expect(new Set(ceePortfolioPhotos.map((photo) => photo.filename)).size).toBe(5);
     expect(new Set(ceePortfolioVideos).size).toBe(7);
     const ceeDirectory = path.join(mediaDirectory, 'Titi');
     const actualPhotos = readdirSync(ceeDirectory).filter((filename) => /\.(png|jpe?g)$/i.test(filename) && !['IMG_0550.JPG','IMG_1714.png','IMG_1720.png'].includes(filename)).sort();
