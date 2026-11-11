@@ -4,12 +4,12 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 const groups=[
- {title:'Overview',items:[['Dashboard','/admin'],['Calendar','/admin/calendar'],['Appointments','/admin/appointments'],['Confidential intakes','/admin/mah-esti-intakes']]},
+ {title:'Overview',items:[['Dashboard','/admin'],['Calendar','/admin/calendar'],['Appointments','/admin/appointments'],['Inquiries','/admin/inquiries'],['Confidential intakes','/admin/mah-esti-intakes']]},
  {title:'People',items:[['Clients','/admin/clients'],['Artists','/admin/artists'],['Staff access','/admin/team']]},
  {title:'Services',items:[['Service menu','/admin/services'],['Categories','/admin/categories'],['Add-ons','/admin/options']]},
  {title:'Schedule',items:[['Availability & time off','/admin/calendar?view=availability']]},
  {title:'Website',items:[['Content','/admin/content'],['Gallery','/admin/gallery'],['Social','/admin/social'],['Testimonials','/admin/testimonials'],['FAQ','/admin/faqs']]},
- {title:'Business',items:[['Policies','/admin/policies'],['Notifications','/admin/notifications'],['Settings','/admin/settings'],['Media library','/admin/media'],['Inquiries','/admin/inquiries']]},
+ {title:'Business',items:[['Policies','/admin/policies'],['Notifications','/admin/notifications'],['Settings','/admin/settings'],['Media library','/admin/media'] ]},
  {title:'Insights',items:[['Analytics','/admin/analytics']]}
 ];
 const artistPages=new Set(['/admin','/admin/calendar','/admin/calendar?view=availability','/admin/appointments','/admin/services','/admin/gallery','/admin/artists','/admin/clients','/admin/inquiries']);
