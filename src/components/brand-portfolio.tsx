@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { brandCollections } from '@/lib/brand-media';
 
-type Props={artistSlug:'shante'|'christina';mode?:'preview'|'full'};
+type Props={artistSlug:'shante'|'christina'|'shante-locs';mode?:'preview'|'full'};
 
 export default function BrandPortfolio({artistSlug,mode='preview'}:Props){
   const collection=brandCollections[artistSlug];
@@ -36,6 +36,6 @@ export default function BrandPortfolio({artistSlug,mode='preview'}:Props){
         </figure>)}
       </div>
     </div>
-    {preview&&<Link className="text-link brand-view-all" href={`/gallery?artist=${artistSlug}`}>Explore {collection.name}&apos;s full lookbook ↗</Link>}
+    {preview&&<Link className="text-link brand-view-all" href={artistSlug==='shante-locs'?'/gallery?category=locs':`/gallery?artist=${artistSlug}`}>Explore {collection.name}&apos;s full lookbook ↗</Link>}
   </div>;
 }
