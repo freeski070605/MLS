@@ -17,7 +17,7 @@ Individual sampled frames and HEIC inspection conversions are in `media-review/`
 | --- | --- | --- | --- | --- |
 | 1 | Cee | `IMG_6519.png` | Distinct radial braid pattern chosen by the owner | Homepage hero; Cee portfolio lead |
 | 2 | Cee | `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` at 10.3s | Finished braided bun, clear technique, simple background | Booking hero; lookbook detail |
-| 3 | Cee | `IMG_1718.png` | Length visible from behind | Services, About, full lookbook |
+| 3 | Cee | `IMG_5395.png` | Length visible from behind | Services, About, full lookbook |
 | 1 | Ke locs | `IMG_9173.JPG` | Clean updo and clearly visible parting | GET TWISTED lead; loc services |
 | 2 | Ke locs | `IMG_0455.JPG` | Strong copper color and complete style | Loc lookbook |
 | 3 | Ke locs | `IMG_0104.JPG` | Technique visible with minimal distraction | Loc lookbook |
@@ -36,7 +36,7 @@ Individual sampled frames and HEIC inspection conversions are in `media-review/`
 | Ke | `Dolphin_Radar_20261111082823.png`, `Dolphin_Radar_20261111082827.png`, `Dolphin_Radar_20261111082842.png` | Selected only for MAH ESTI; first source is upside down and its derivative is rotated 180 degrees. |
 | Cee | `IMG_0550.JPG` | Artist headshot; existing placement preserved. |
 | Cee | `IMG_1714.png`, `IMG_1720.png` | **Rejected for site use. Never publish or reseed.** Originals retained for private review. |
-| Cee | `IMG_1718.png`, `IMG_6519.png` | Selected braid length and parting views. Their room or outdoor context makes them supporting images. |
+| Cee | `IMG_5395.png`, `IMG_6519.png` | Selected braid length and parting views. Their room or outdoor context makes them supporting images. |
 | Cee | `IMG_5393.png`, `IMG_5394.png`, `IMG_5395.png`, `IMG_5396.png` | Incomplete in chair process series with distractions; not used in curated site. |
 
 ## Video inspection and edits
@@ -83,7 +83,7 @@ The Cee booking still and its matching video poster are the same real frame. Vid
 | Ke `Dolphin_Radar_20261111082840.mp4` | Shante esthetics full gallery |
 | Cee `IMG_6519.png` | Homepage hero and Cee portfolio lead |
 | Cee `7EACAEFE-4995-4049-8792-1FAF4518A447.mp4` | Cee booking and artists directory stills, homepage lookbook tile, Cee portfolio still and film, homepage motion feature |
-| Cee `IMG_1718.png` | Homepage braid card, services hero, gallery hero, Cee portfolio, About composition |
+| Cee `IMG_5395.png` | Homepage braid card, services hero, gallery hero, Cee portfolio, About composition |
 | Cee `BC3ED02A-588C-4C69-8718-9950689904D5.mp4` | Cee full gallery |
 | Ke `IMG_0549.PNG`, Cee `IMG_0550.JPG` | Existing artist headshot positions, unchanged |
 
