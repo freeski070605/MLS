@@ -48,7 +48,7 @@ export default async function Home(){
           </figure>
           <figure className="brand-hero-image brand-hero-image-side">
             <Image src={shante.photos[0].src} alt={shante.photos[0].alt} fill priority sizes="(max-width: 760px) 44vw, 20vw" className="brand-image"/>
-            <figcaption><span>02</span> Artistry by Shante</figcaption>
+            <figcaption><span>02</span> MAH ESTI by Shante</figcaption>
           </figure>
           <div className="brand-hero-seal"><Image src="/brand/mahlovely-logo-transparent.png" alt="MahLovely Studio" width={155} height={155}/></div>
         </div>
@@ -77,7 +77,7 @@ export default async function Home(){
       <div className="container">
         <div className="section-heading"><div><p className="eyebrow">The art of care</p><h2>Find your thing.</h2></div><Link className="text-link" href="/services">Explore the full menu ↗</Link></div>
         <div className="brand-category-grid">{categories.map((c,i)=>{
-          const artwork=c.slug==='locs'?shante.photos[1]:c.slug==='braids'?cee.photos[1]:null;
+          const artwork=c.slug==='esthetics'?shante.photos[1]:c.slug==='braids'?cee.photos[1]:null;
           return <Link className={'brand-category'+(artwork?' has-art':'')} key={c.slug} href={`/services?category=${c.slug}`}>
             {artwork&&<Image src={artwork.src} alt={artwork.alt} fill sizes="(max-width: 760px) 100vw, 27vw" className="brand-image" loading="lazy"/>}
             <div className="brand-category-content"><span>0{i+1} / {c.name}</span><h3>{c.name}</h3><p>{c.description}</p><span className="brand-category-arrow">Explore ↗</span></div>
@@ -91,13 +91,17 @@ export default async function Home(){
         <div className="brand-motion-duo">
           {[{collection:shante,slug:'shante'},{collection:cee,slug:'christina'}].map(({collection,slug})=><article className="brand-motion-feature" key={slug}>
             <div className="brand-motion-video"><video controls playsInline preload="none" poster={collection.films[0].poster} aria-label={collection.films[0].title}><source src={collection.films[0].src} type="video/mp4"/>Your browser does not support this video.</video></div>
-            <div className="brand-motion-info"><div><span className="eyebrow">From the chair / {collection.name}</span><h3>{collection.discipline}</h3></div><Link className="text-link" href={`/gallery?artist=${slug}`}>Explore the work ↗</Link></div>
+            <div className="brand-motion-info"><div><span className="eyebrow">From the chair / {collection.name}</span><h3>{collection.discipline}</h3></div><Link className="text-link" href={slug==='shante'?'/mah-esti':`/gallery?artist=${slug}`}>Explore the work ↗</Link></div>
           </article>)}
         </div>
       </div>
     </section>
 
-    <section className="section brand-lookbook-section">
+    <section className="mah-home-promo"><div className="container mah-home-promo-inner">
+      <div><p className="eyebrow">Introducing / MAH ESTI by Shante</p><h2>Redeem. Relax. <em>Glow.</em></h2><p>Signature facials, targeted body treatments and luxury spa experiences. Discover seven core facials, five body rituals and six curated packages.</p><Link className="button button-light" href="/mah-esti">Explore MAH ESTI ↗</Link></div>
+      <div className="mah-home-promo-side"><span>THE MAH ESTI EDIT</span><strong>Skin, but make it personal.</strong><p>Your consultation is where it all begins.</p></div>
+    </div></section>
+        <section className="section brand-lookbook-section">
       <div className="container">
         <div className="section-heading"><div><p className="eyebrow">The lookbook</p><h2>Every detail tells a story.</h2></div><Link className="text-link" href="/gallery">View the lookbook ↗</Link></div>
         <div className="brand-lookbook-grid">
