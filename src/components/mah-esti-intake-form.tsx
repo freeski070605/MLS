@@ -55,7 +55,7 @@ export default function MahEstiIntakeForm({configured,service}:{configured:boole
    setAnswers({});setSignature('');setInitials('');setAccepted(false);
   }catch(e){setError(e instanceof Error?e.message:'Could not submit. Please try again.')}finally{setBusy(false)}
  }
- if(receipt)return <section className="intake-confirmation" role="status"><p className="eyebrow">MAH ESTI / confidential intake</p><h3>Your consultation was received.</h3><p>Your reference: <strong>{receipt}</strong></p><p>Ke will review your responses privately. This is an intake, not a confirmed appointment or approval for treatment.</p></section>;
+ if(receipt)return <section className="intake-confirmation" role="status"><p className="eyebrow">MAH ESTI / confidential intake</p><h3>Your consultation was received.</h3><p>Your reference: <strong>{receipt}</strong></p><p>Shante will review your responses privately. This is an intake, not a confirmed appointment or approval for treatment.</p></section>;
  return <div className="intake-form">
   {!configured&&<p className="intake-warning" role="status">The confidential intake system is being configured. You can review the questions, but submission is not available until secure storage is enabled.</p>}
   <div className="intake-progress"><span>{String(step+1).padStart(2,'0')} / {String(total).padStart(2,'0')}</span><div className="intake-meter"><i style={{width:((step+1)/total*100)+'%'}}/></div></div>
