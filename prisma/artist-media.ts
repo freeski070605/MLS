@@ -6,7 +6,6 @@ export const artistHeadshots = [
 ] as const;
 
 export const ceePortfolioPhotos = [
-  { filename: 'IMG_1718.png', width: 4284, height: 5712 },
   { filename: 'IMG_5393.png', width: 3024, height: 4032 },
   { filename: 'IMG_5394.png', width: 3024, height: 4032 },
   { filename: 'IMG_5395.png', width: 3024, height: 4032 },
