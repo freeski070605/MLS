@@ -10,7 +10,7 @@ import { mahSections } from '@/lib/mah-esti';
 export async function POST(req:NextRequest){
   if(!safeOrigin(req))return errorResponse('Invalid origin',403);
   const user=await currentUser();
-  if(!user||!['OWNER','ADMIN'].includes(user.role))return errorResponse('Forbidden',403);
+  if(!user||user.role!=='OWNER')return errorResponse('Forbidden',403);
   try{
     const artist=await db.artist.findFirst({
       where:{slug:{in:['shante','ke']}},
